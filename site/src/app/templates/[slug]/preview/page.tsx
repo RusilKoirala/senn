@@ -12,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/templates/[slug]/preview">) {
   const { slug } = await params;
   const t = getMeta(slug);
-  return t ? { description: t.description } : {};
+  return t ? { description: t.description, ...(t.previewNoindex ? { robots: { index: false, follow: false } } : {}) } : {};
 }
 
 // params is read inside Suspense so client navigations stay instant.

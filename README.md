@@ -16,6 +16,16 @@ You've built the product, and now it needs a page. A blank file plus a coding ag
 
 Built with Tailwind CSS, shadcn/ui and React Bits. Every template is one self contained folder: sections, copy, theme and images.
 
+### Design conference — Assembly
+
+![Design conference](site/src/senn/previews/design-conference.jpg)
+
+An event poster with a working programme, personal agenda and calendar export.
+
+```bash
+npx senn-ui@latest add design-conference
+```
+
 ## Use a template
 
 In your Next.js project:
@@ -70,4 +80,4 @@ Everyone who helps gets credited here, for code, design, docs, bug reports and i
 
 ## License
 
-[MIT](LICENSE). Use the templates in personal and commercial work, no attribution needed.
+[MIT](LICENSE) for Senn's original code. Bundled third party components retain their own licenses; preserve the notices included with each template.

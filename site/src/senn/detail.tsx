@@ -143,7 +143,7 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
               <Step n={3} title="Make it yours with your AI agent">
                 <p className="text-sm text-pretty text-(--senn-muted)">
                   {tab === "prompt"
-                    ? `Paste into Claude Code, Cursor, Codex or any coding agent. It asks about ${t.kind === "portfolio" ? "you and your work" : "your product"}, then rewrites the copy, colors and images.`
+                    ? `Paste into Claude Code, Cursor, Codex or any coding agent. It asks about ${t.kind === "portfolio" ? "you and your work" : t.kind === "event" ? "your event and programme" : "your product"}, then rewrites the copy, colors and images.`
                     : "One command adds a skill your agent can use. Then just ask it to make the template yours."}
                 </p>
                 <div className="overflow-hidden rounded-xl border border-(--senn-line) bg-(--senn-surface)">

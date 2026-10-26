@@ -7,7 +7,8 @@ export type TemplateMeta = {
   status: "live" | "soon";
   description: string;
   codename?: string;
-  kind?: "product" | "portfolio";
+  kind?: "product" | "portfolio" | "event";
+  previewNoindex?: boolean;
   tags?: string[];
   sections?: number;
   dependencies?: string[];
@@ -54,6 +55,28 @@ export const catalog: TemplateMeta[] = [
       "Each project in `work.projects` picks a looping mini UI with `visual` (events, booking or notes) whose text lives in `visuals`. Rewrite that text so the mini UIs show my projects doing their job, or build a new visual in components/work-visuals.tsx.",
       "Set a project's `tone` to \"light\" when its photo is pale, so its panels switch to frosted white with ink text.",
       "The hero and contact photos join a flat sky colour above them (`--summit-sky`, `--summit-moss-sky` in theme.css). If you replace those photos, sample the new sky colour and update the tokens.",
+    ],
+  },
+  {
+    slug: "design-conference",
+    name: "Design conference",
+    codename: "Assembly",
+    kind: "event",
+    previewNoindex: true,
+    status: "live",
+    description:
+      "A bold event poster in vermilion, paper and black ink. An interactive two track programme, speaker roster and personal agenda with calendar export.",
+    tags: ["Event", "Poster typography", "React Bits", "Agenda builder"],
+    sections: 9,
+    dependencies: ["gsap", "@gsap/react", "motion", "@phosphor-icons/react"],
+    brandClass: "assembly",
+    agentNotes: [
+      "Assembly, its speakers and Harbor Hall are fictional. Replace all event, venue and speaker details with verified information, then remove the sample labels. Supply a real contact address and ticket provider before announcing a real event.",
+      "Sessions use explicit ISO timestamps with UTC offsets. Update event.timeZone, every session start/end, programme breaks, all date labels, calendarDomain, calendarFile and storageKey together. The planner rejects overlapping sessions and exports only the visitor's selected sessions as a timezone correct .ics file.",
+      "Programme filters include shared sessions in both tracks. Keep speaker IDs and session IDs connected. Biographies expand in place; their links return to the correct programme row.",
+      "The two generated venue images live in assets/hall.jpg and assets/venue.jpg. Replace them with real event photography, updating alt text and object positions in content.ts. The original generation prompts are documented in assets/IMAGE_SOURCES.md.",
+      "Preserve REACT_BITS_LICENSE and THIRD_PARTY_NOTICES.md. React Bits components retain their upstream MIT + Commons Clause terms; Senn's MIT license does not relicense them. The project owner confirmed redistribution permission for this template.",
+      "The demo is noindex in Senn. Add real metadata and optional Event structured data in the host app only after the date, location, organiser and booking details are verified. Downloading the agenda does not reserve admission.",
     ],
   },
   {

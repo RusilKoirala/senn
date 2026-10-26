@@ -38,6 +38,12 @@ try {
       assert(template.files.includes("LICENSE"), "Margin license missing");
       assert(template.files.includes("assets/tech/LICENSE"), "Icon license missing");
     }
+    if (template.slug === "design-conference") {
+      assert(template.files.includes("REACT_BITS_LICENSE"), "React Bits license missing");
+      assert(template.files.includes("THIRD_PARTY_NOTICES.md"), "Third party notices missing");
+      assert(template.files.includes("assets/IMAGE_SOURCES.md"), "Image sources missing");
+      assert(template.skill.includes("verified date and timezone"), "Event skill asks for the wrong content");
+    }
 
     for (const layout of ["src", "root"]) {
       const fixture = join(scratch, `${template.slug}-${layout}`);

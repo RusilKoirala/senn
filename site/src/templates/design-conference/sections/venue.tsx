@@ -1,0 +1,8 @@
+"use client";
+import Image from "next/image";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { Container, Label, Reveal } from "../components/ui";
+import { venue } from "../content";
+export function Venue() {
+  return <section id="venue" className="border-t border-(--assembly-rule)" aria-labelledby="assembly-venue-title"><Container className="grid lg:grid-cols-2"><Reveal className="relative min-h-[400px] overflow-hidden sm:min-h-[520px] lg:my-0 lg:min-h-[680px]" distance={16}><Image src={venue.image.src} alt={venue.image.alt} fill sizes="(min-width: 1024px) 640px, 100vw" className="assembly-photo" style={{ objectPosition: "67% 50%" }} /><p className="assembly-mono absolute right-4 bottom-4 left-4 flex items-center justify-between gap-4 bg-(--assembly-paper) p-4 text-xs"><span>{venue.name} / {venue.city}</span><ArrowUpRightIcon size={20} /></p></Reveal><div className="py-12 lg:py-16 lg:pl-16"><Reveal><Label>{venue.label}</Label><h2 id="assembly-venue-title" className="assembly-title mt-6">{venue.title.map(line => <span className="block" key={line}>{line}</span>)}</h2><p className="mt-6 max-w-sm text-base leading-relaxed text-(--assembly-muted)">{venue.description}</p></Reveal><dl className="mt-10 space-y-6">{venue.details.map(item => <div key={item.label} className="border-t border-(--assembly-rule) pt-4"><dt className="text-sm font-semibold">{item.label}</dt><dd className="mt-2 max-w-sm text-sm leading-relaxed text-(--assembly-muted)">{item.text}</dd></div>)}</dl><p className="assembly-mono mt-8 text-xs text-(--assembly-muted)">{venue.sampleNote}</p></div></Container></section>;
+}

@@ -9,9 +9,12 @@ function steps(t: TemplateMeta) {
   const brand = t.brandClass ?? "brand";
   const notes = (t.agentNotes ?? []).map((n) => `- ${n}`).join("\n");
   const portfolio = t.kind === "portfolio";
+  const event = t.kind === "event";
   const intake = portfolio
     ? "name, role, location and time zone, email and booking link, real projects with URLs and outcomes, work history, tech stack, GitHub activity source, availability, and preferred colors. Never invent employment, awards, project results or contribution counts."
-    : "product name, what it does in one sentence, who it is for, the one action I want visitors to take (sign up, book a demo, join a waitlist…), three or four benefits, real proof (numbers, customer quotes, logos), common questions with answers, brand colors and font preference. Never invent statistics or testimonials.";
+    : event
+      ? "event name, audience, verified date and timezone, venue and access information, sessions with start/end times and rooms, real speakers and biographies, contact address, ticket provider, common questions, and brand colors. Never invent speakers, credentials, sponsors, venue access claims or ticket availability."
+      : "product name, what it does in one sentence, who it is for, the one action I want visitors to take (sign up, book a demo, join a waitlist…), three or four benefits, real proof (numbers, customer quotes, logos), common questions with answers, brand colors and font preference. Never invent statistics or testimonials.";
 
   return `The template lives in \`${dir}/\`:
 - \`content.ts\`: every word, number, link and image, plus the data the product mockups show. Most of the work happens here.
@@ -22,7 +25,7 @@ function steps(t: TemplateMeta) {
 
 Steps:
 1. Before editing anything, ask me what you need to know in one short list: ${intake} If I don't have something yet, leave a clear TODO in content.ts.
-2. Rewrite \`content.ts\` for ${portfolio ? "my own portfolio" : "my product"}. Keep the same structure and field names. Write specific, plain copy: concrete outcomes and real numbers, no filler, no buzzwords, sentence case headings.
+2. Rewrite \`content.ts\` for ${portfolio ? "my own portfolio" : event ? "my event" : "my product"}. Keep the same structure and field names. Write specific, plain copy: concrete outcomes and real numbers, no filler, no buzzwords, sentence case headings.
 3. Rebrand: change the wordmark in content.ts, rename the \`.${brand}\` class and the \`--${brand}-*\` variables to my brand, and rename the page component.
 4. Update the colors in \`theme.css\` to my brand. Check that text stays readable on every photo, in both light and dark areas.
 5. Replace the photos in \`assets/\` with mine, or ask me for them. Keep the imports in content.ts in sync.
@@ -36,7 +39,7 @@ ${notes}`;
 }
 
 export function agentPrompt(t: TemplateMeta) {
-  return `I'm using the "${t.name}" template from Senn (open source, MIT). ${t.kind === "portfolio" ? "Make it my own portfolio, using my real work and personal information." : "Turn it into the landing page for my own product."}
+  return `I'm using the "${t.name}" template from Senn (MIT; bundled third party components retain their own licenses). ${t.kind === "portfolio" ? "Make it my own portfolio, using my real work and personal information." : t.kind === "event" ? "Make it the landing page for my own event, using verified programme and venue information." : "Turn it into the landing page for my own product."}
 
 ${steps(t)}`;
 }
@@ -44,7 +47,7 @@ ${steps(t)}`;
 export function agentSkill(t: TemplateMeta) {
   return `---
 name: senn-${t.slug}
-description: Customize the Senn "${t.name}" template for the user's own ${t.kind === "portfolio" ? "portfolio" : "product"}. Use when the user asks to customize, rebrand or adapt this template, or to make it theirs.
+description: Customize the Senn "${t.name}" template for the user's own ${t.kind === "portfolio" ? "portfolio" : t.kind === "event" ? "event" : "product"}. Use when the user asks to customize, rebrand or adapt this template, or to make it theirs.
 ---
 
 # Make the Senn "${t.name}" template yours

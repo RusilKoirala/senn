@@ -1,0 +1,13 @@
+"use client";
+import { useRef, useState } from "react";
+import { ArrowUpRightIcon, AsteriskIcon, XIcon } from "@phosphor-icons/react";
+import ScrollVelocity from "../components/ScrollVelocity";
+import ShinyText from "../components/ShinyText";
+import { Container } from "../components/ui";
+import { event, footer } from "../content";
+export function Footer() {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [legal, setLegal] = useState<"privacy" | "terms">("privacy");
+  const show = (type: "privacy" | "terms") => { setLegal(type); dialog.current?.showModal(); };
+  return <footer className="overflow-hidden bg-(--assembly-ink) py-12 text-(--assembly-paper) sm:py-16"><Container className="flex flex-wrap items-center justify-between gap-6"><p className="text-xl font-medium tracking-tight"><ShinyText text={footer.phrase} color="#f7f2e9" shineColor="#f14b28" trigger="hover" speed={1.4} /></p><a href="#programme" className="inline-flex items-center gap-3 text-sm underline underline-offset-4">{footer.back}<ArrowUpRightIcon size={16} /></a></Container><div className="my-10 overflow-hidden" aria-hidden><ScrollVelocity texts={[event.name.toUpperCase()]} velocity={24} gap={48} fontSize="var(--assembly-marquee-size)" fontWeight={600} separator={<AsteriskIcon size={48} weight="bold" className="text-(--assembly-orange)" />} fadeEdges={false} draggable={false} numCopies={4} /></div><Container className="flex flex-wrap items-center justify-between gap-6 border-t border-(--assembly-paper)/20 pt-6 text-xs text-(--assembly-paper)/60"><p className="assembly-mono">© {footer.copyright} / {event.sampleLabel}</p><nav aria-label="Footer" className="flex flex-wrap gap-6"><a href={`mailto:${event.email}`} className="transition-colors duration-500 hover:text-(--assembly-paper)">{footer.emailLabel}</a><button type="button" onClick={() => show("privacy")} className="transition-colors duration-500 hover:text-(--assembly-paper)">{footer.privacyLabel}</button><button type="button" onClick={() => show("terms")} className="transition-colors duration-500 hover:text-(--assembly-paper)">{footer.termsLabel}</button></nav></Container><dialog ref={dialog} className="assembly-dialog" aria-labelledby="assembly-legal-title"><div className="flex items-start justify-between gap-6"><h2 id="assembly-legal-title" className="text-3xl font-semibold tracking-tight">{legal === "privacy" ? footer.privacyTitle : footer.termsTitle}</h2><button type="button" className="assembly-icon-button shrink-0" aria-label={footer.close} onClick={() => dialog.current?.close()}><XIcon size={20} /></button></div><p className="mt-6 text-sm leading-relaxed text-(--assembly-muted)">{legal === "privacy" ? footer.privacyText : footer.termsText}</p></dialog></footer>;
+}

@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import DesignConference from "./design-conference/page";
 import DeveloperPortfolio from "./developer-portfolio/page";
 import MinimalPortfolio from "./minimal-portfolio/page";
 import ModernSaas from "./modern-saas/page";
@@ -8,10 +9,12 @@ export type SennTemplate = {
   name: string;
   description: string;
   Page: ComponentType;
+  noindex?: boolean;
 };
 
 // Templates are added here one at a time as each is finished.
 export const templates: SennTemplate[] = [
+  { slug: "design-conference", name: "Design conference", description: "Assembly: a bold poster inspired design conference with a working programme and personal agenda.", Page: DesignConference, noindex: true },
   {
     slug: "modern-saas",
     name: "Modern SaaS",

@@ -1,0 +1,80 @@
+/* Assembly: a poster, a programme, and a useful plan. All styles are scoped. */
+.assembly {
+  --assembly-orange: #f14b28;
+  --assembly-paper: #f7f2e9;
+  --assembly-ink: #181818;
+  --assembly-muted: #625e57;
+  --assembly-rule: rgb(24 24 24 / .2);
+  --assembly-ease: cubic-bezier(.32,.72,0,1);
+  --assembly-marquee-size: var(--text-6xl);
+  color: var(--assembly-ink);
+  background: var(--assembly-paper);
+  font-family: var(--font-assembly-sans), sans-serif;
+  overflow: clip;
+  color-scheme: light;
+}
+.assembly *, .assembly *::before, .assembly *::after { box-sizing: border-box; }
+.assembly .assembly-container { width: calc(100% - 48px); max-width: 1280px; margin-inline: auto; }
+.assembly .assembly-mono { font-family: var(--font-assembly-mono), monospace; }
+.assembly :where(h1,h2,h3,p) { margin-bottom: 0; }
+.assembly :where(h1,h2,h3) { text-wrap: balance; }
+.assembly p { text-wrap: pretty; }
+.assembly :where(button,a,summary) { -webkit-tap-highlight-color: transparent; transition-timing-function: var(--assembly-ease); }
+.assembly :where(a,button,summary):focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.assembly :where(button,summary) { cursor: pointer; }
+.assembly button:disabled { cursor: not-allowed; opacity: .45; }
+.assembly :where(section,[id]) { scroll-margin-top: 96px; }
+.assembly .assembly-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 24px;
+  min-height: 48px; padding: 12px 16px;
+  border: 1px solid var(--assembly-ink); background: var(--assembly-ink); color: var(--assembly-paper);
+  font-size: var(--text-sm); font-weight: 600; line-height: var(--text-sm--line-height);
+  text-decoration: none; transition: color 500ms var(--assembly-ease), background-color 500ms var(--assembly-ease), transform 500ms var(--assembly-ease);
+}
+.assembly .assembly-button:hover:not(:disabled) { background: var(--assembly-paper); color: var(--assembly-ink); }
+.assembly .assembly-button:active:not(:disabled) { transform: translateY(1px); }
+.assembly .assembly-button-light { background: var(--assembly-paper); color: var(--assembly-ink); }
+.assembly .assembly-button-light:hover { background: var(--assembly-orange); }
+.assembly .assembly-button-quiet { background: transparent; color: var(--assembly-ink); }
+.assembly .assembly-icon-button { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; border: 1px solid currentColor; transition: background-color 500ms var(--assembly-ease); }
+.assembly .assembly-icon-button:hover { background: rgb(24 24 24 / .08); }
+.assembly .assembly-section { padding-block: 80px; }
+.assembly .assembly-title { font-size: var(--text-4xl); line-height: var(--text-4xl--line-height); font-weight: 600; letter-spacing: -.05em; }
+.assembly .assembly-headline { font-weight: 600; letter-spacing: -.075em; word-spacing: .04em; line-height: .98; }
+.assembly .assembly-headline-line { display: block; white-space: nowrap; }
+.assembly .assembly-photo { object-fit: cover; }
+.assembly .assembly-dim { color: var(--assembly-muted); }
+.assembly .assembly-roster summary, .assembly .assembly-faq summary { list-style: none; }
+.assembly summary::-webkit-details-marker { display: none; }
+.assembly .assembly-roster details, .assembly .assembly-faq details { border-bottom: 1px solid currentColor; }
+.assembly .assembly-roster details:first-child, .assembly .assembly-faq details:first-child { border-top: 1px solid currentColor; }
+.assembly .assembly-roster details { border-color: rgb(247 242 233 / .25); }
+.assembly details .assembly-plus { transition: transform 600ms var(--assembly-ease); }
+.assembly details[open] .assembly-plus { transform: rotate(45deg); }
+.assembly .assembly-details-copy { animation: assembly-enter 700ms var(--assembly-ease) both; }
+.assembly .assembly-session { transition: background-color 500ms var(--assembly-ease); }
+.assembly .assembly-session[data-selected="true"] { background: #ede8df; }
+.assembly .assembly-session:target { outline: 2px solid var(--assembly-orange); outline-offset: -2px; }
+.assembly .assembly-session:hover { background: #eee9df; }
+.assembly .assembly-session-toggle { display: flex; min-height: 44px; min-width: 44px; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--assembly-ink); transition: background-color 500ms var(--assembly-ease), color 500ms var(--assembly-ease); }
+.assembly .assembly-session-toggle:hover, .assembly .assembly-session-toggle[aria-pressed="true"] { background: var(--assembly-ink); color: var(--assembly-paper); }
+.assembly .assembly-agenda-ticket { position: relative; border: 1px solid var(--assembly-ink); background: var(--assembly-paper); }
+.assembly .assembly-agenda-ticket::before, .assembly .assembly-agenda-ticket::after { content: ""; position: absolute; top: 87px; width: 24px; height: 24px; border: 1px solid var(--assembly-ink); border-radius: 50%; background: var(--assembly-orange); }
+.assembly .assembly-agenda-ticket::before { left: -13px; clip-path: inset(0 0 0 50%); }
+.assembly .assembly-agenda-ticket::after { right: -13px; clip-path: inset(0 50% 0 0); }
+.assembly .assembly-dialog {
+  position: fixed; inset: 0; width: min(600px, calc(100% - 32px)); max-height: calc(100svh - 48px); overflow: auto;
+  margin: auto; padding: 32px; border: 1px solid var(--assembly-ink); background: var(--assembly-paper); color: var(--assembly-ink);
+  font-family: var(--font-assembly-sans), sans-serif;
+}
+.assembly .assembly-dialog::backdrop { background: rgb(24 24 24 / .65); backdrop-filter: blur(6px); }
+.assembly .assembly-menu[open] { position: fixed; inset: 0; display: flex; flex-direction: column; width: 100%; max-width: none; height: 100svh; max-height: none; border: 0; margin: 0; padding: 24px; background: var(--assembly-orange); }
+.assembly .assembly-menu:not([open]) { display: none; }
+.assembly .assembly-dialog[open] { animation: assembly-enter 400ms var(--assembly-ease) both; }
+@keyframes assembly-enter { from { opacity: .5; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (min-width: 640px) { .assembly .assembly-title { font-size: var(--text-5xl); line-height: 1; } .assembly { --assembly-marquee-size: var(--text-8xl); } }
+@media (min-width: 1024px) { .assembly .assembly-section { padding-block: 96px; } .assembly .assembly-title { font-size: var(--text-6xl); } .assembly { --assembly-marquee-size: var(--text-9xl); } }
+@media (max-width: 359px) { .assembly .assembly-container { width: calc(100% - 32px); } }
+@media (prefers-reduced-motion: reduce) {
+  .assembly *, .assembly *::before, .assembly *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
