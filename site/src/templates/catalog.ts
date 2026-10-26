@@ -10,6 +10,10 @@ export type TemplateMeta = {
   tags?: string[];
   sections?: number;
   dependencies?: string[];
+  // For the "make it yours" agent prompt: the scoping class and CSS variable prefix
+  // the template uses, and anything specific an agent must know about it.
+  brandClass?: string;
+  agentNotes?: string[];
 };
 
 export const catalog: TemplateMeta[] = [
@@ -23,6 +27,13 @@ export const catalog: TemplateMeta[] = [
     tags: ["Light", "Photography", "Editorial serif", "Scroll stories"],
     sections: 9,
     dependencies: ["gsap", "@gsap/react", "motion", "@phosphor-icons/react", "clsx", "tailwind-merge"],
+    brandClass: "cove",
+    agentNotes: [
+      "The product mockups (the inbox in the hero and the four looping benefit visuals) read their text from `inbox` and `visuals` in content.ts. Rewrite them so they show my product doing its job, with realistic specific details.",
+      "`howItWorks.trail` holds points traced along the path in the valley photo. If you replace that photo, retrace the points (x% and y% of the image) so the drawn line still follows a path, road or river in the new photo.",
+      "Headlines are arrays of lines in content.ts (one entry per line). Keep each line short enough to stay on one line at desktop width.",
+      "Text sits on the empty sky of each photo. When choosing replacement photos, keep a calm, empty area at the top.",
+    ],
   },
   {
     slug: "creative-agency",

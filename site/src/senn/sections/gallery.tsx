@@ -1,12 +1,7 @@
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { catalog } from "@/templates/catalog";
-import modernSaas from "../previews/modern-saas.jpg";
-
-// Screenshots of live templates, by slug. Templates without one show as "soon".
-const PREVIEWS: Record<string, StaticImageData> = {
-  "modern-saas": modernSaas,
-};
+import { previews } from "../previews";
 
 const TILE = "block overflow-hidden rounded-2xl border border-(--senn-line) bg-(--senn-surface)";
 
@@ -15,7 +10,7 @@ export function Gallery() {
     <section aria-label="Templates" className="px-4 py-10 md:py-16">
       <ul className="mx-auto grid max-w-6xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {catalog.map((t, i) => {
-          const preview = PREVIEWS[t.slug];
+          const preview = previews[t.slug];
           const live = t.status === "live" && preview;
           return (
             <li key={t.slug} className="senn-rise" style={{ animationDelay: `${i * 80}ms` }}>

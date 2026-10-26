@@ -1,7 +1,10 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getMeta, liveTemplates } from "@/templates/catalog";
-import { TemplateViewer } from "@/senn/viewer";
+import { TemplateDetail } from "@/senn/detail";
+import { Footer } from "@/senn/sections/footer";
+import { Nav } from "@/senn/sections/nav";
+import "@/senn/theme.css";
 
 type Params = PageProps<"/templates/[slug]">["params"];
 
@@ -15,18 +18,24 @@ export async function generateMetadata({ params }: PageProps<"/templates/[slug]"
   return t ? { title: `${t.name} template — Senn`, description: t.description } : {};
 }
 
-// params is read inside Suspense so client navigations stay instant.
-export default function TemplateViewerPage({ params }: PageProps<"/templates/[slug]">) {
+export default function TemplateDetailPage({ params }: PageProps<"/templates/[slug]">) {
   return (
-    <Suspense>
-      <Viewer params={params} />
-    </Suspense>
+    <div className="senn flex min-h-svh flex-col">
+      <Nav />
+      <main className="flex-1">
+        {/* params is read inside Suspense so client navigations stay instant. */}
+        <Suspense>
+          <Detail params={params} />
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
-async function Viewer({ params }: { params: Params }) {
+async function Detail({ params }: { params: Params }) {
   const { slug } = await params;
   const t = getMeta(slug);
   if (!t || t.status !== "live") notFound();
-  return <TemplateViewer template={t} />;
+  return <TemplateDetail template={t} />;
 }

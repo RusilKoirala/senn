@@ -36,7 +36,7 @@ export function TemplateViewer({ template }: { template: TemplateMeta }) {
   return (
     <div className="senn flex h-svh flex-col">
       <header className="flex h-16 shrink-0 items-center gap-3 border-b border-(--senn-line) px-3 md:px-4">
-        <Link href="/#templates" aria-label="Back to all templates" className={ICON_BUTTON}>
+        <Link href={`/templates/${template.slug}`} aria-label="Back to the template" className={ICON_BUTTON}>
           <ArrowLeftIcon size={16} />
         </Link>
         <div className="flex min-w-0 flex-col leading-tight">
