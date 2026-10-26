@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "registry": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-registry.mts"
+    "registry": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-registry.mts",
+    "verify:registry": "pnpm registry && node ../cli/scripts/verify-registry.mjs",
+    "check": "pnpm verify:registry && pnpm lint && pnpm build"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

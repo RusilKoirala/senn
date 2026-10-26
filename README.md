@@ -9,10 +9,8 @@ Senn is a small collection of complete, open source landing page templates for N
 | Template | Status |
 | --- | --- |
 | Modern SaaS | Live |
-| Creative agency portfolio | In progress |
-| AI startup | In progress |
-| Minimal product launch | In progress |
-| Developer portfolio | In progress |
+| Developer portfolio | Live |
+| Minimal portfolio | Live |
 
 ## Use a template
 

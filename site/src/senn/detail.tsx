@@ -46,6 +46,7 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
   const { copied, copy } = useCopy();
   const preview = previews[t.slug];
   const text = tab === "prompt" ? agentPrompt(t) : agentSkill(t);
+  const renderCode = `import Template from "@/templates/${t.slug}/page";\n\nexport default function Home() {\n  return <Template />;\n}`;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
@@ -113,22 +114,36 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
             <h2 className="mb-6 text-sm font-semibold text-(--senn-muted)">Set up</h2>
             <ol className="flex flex-col gap-8">
               <Step n={1} title="Download it">
+                <p className="text-sm text-(--senn-muted)">For Next.js App Router with React 19, Tailwind CSS v4, and the @/ import alias.</p>
                 <CopyCommand command={addCommand(t.slug)} />
                 {t.dependencies && (
-                  <>
-                    <p className="text-sm text-(--senn-muted)">
-                      Or copy <code className="font-mono text-xs">src/templates/{t.slug}</code> from GitHub and install
-                      its packages:
-                    </p>
-                    <CopyCommand command={`npm i ${t.dependencies.join(" ")}`} />
-                  </>
+                  <details className="rounded-xl border border-(--senn-line) p-3">
+                    <summary className="cursor-pointer text-sm font-medium">Prefer to copy the files manually?</summary>
+                    <div className="mt-3 flex flex-col gap-3">
+                      <p className="text-sm text-(--senn-muted)">
+                        Copy <code className="font-mono text-xs">src/templates/{t.slug}</code> from GitHub, including its assets and license files. Install its packages:
+                      </p>
+                      <CopyCommand command={`npm i ${[...t.dependencies, "cn"].join(" ")}`} />
+                      <p className="text-sm text-(--senn-muted)">
+                        If your project has no <code className="font-mono text-xs">src/lib/utils.ts</code> (or <code className="font-mono text-xs">lib/utils.ts</code>), create it with:
+                      </p>
+                      <CopyCommand command={'export { cn } from "cn";'} kind="code" />
+                    </div>
+                  </details>
                 )}
               </Step>
 
-              <Step n={2} title="Make it yours with your AI agent">
+              <Step n={2} title="Render the template">
+                <p className="text-sm text-(--senn-muted)">
+                  Add this to <code className="font-mono text-xs">src/app/page.tsx</code> (or <code className="font-mono text-xs">app/page.tsx</code> if your project has no src folder).
+                </p>
+                <CopyCommand command={renderCode} kind="code" />
+              </Step>
+
+              <Step n={3} title="Make it yours with your AI agent">
                 <p className="text-sm text-pretty text-(--senn-muted)">
                   {tab === "prompt"
-                    ? "Paste into Claude Code, Cursor, Codex or any coding agent. It asks about your product, then rewrites the copy, colors and images."
+                    ? `Paste into Claude Code, Cursor, Codex or any coding agent. It asks about ${t.kind === "portfolio" ? "you and your work" : "your product"}, then rewrites the copy, colors and images.`
                     : "One command adds a skill your agent can use. Then just ask it to make the template yours."}
                 </p>
                 <div className="overflow-hidden rounded-xl border border-(--senn-line) bg-(--senn-surface)">
@@ -203,7 +218,7 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
                 </div>
               </Step>
 
-              <Step n={3} title="Run it">
+              <Step n={4} title="Run it">
                 <CopyCommand command="npm run dev" />
                 <p className="text-sm text-(--senn-muted)">Then open localhost:3000.</p>
               </Step>

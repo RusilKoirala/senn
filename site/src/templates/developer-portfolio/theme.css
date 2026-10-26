@@ -1,0 +1,169 @@
+/* Summit template tokens. Scoped to .summit so templates never leak into each other. */
+
+.summit {
+  /* Ink sits on the pale evening sky, cream on the warm black page. */
+  --summit-ink: #131209;
+  --summit-ink-muted: #4a463d;
+  --summit-sky: #b4b2aa;
+  --summit-moss-sky: #faf5ec;
+  --summit-night: #131209;
+  --summit-cream: #f3ede4;
+  --summit-cream-muted: #a39c90;
+  --summit-line: rgb(243 237 228 / 0.1);
+  --summit-copper: #d9774b;
+  /* Darker copper that still reads on the pale sky. */
+  --summit-ember: #8f3a1c;
+  --summit-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Frosted panels on project photos. */
+  --summit-panel: rgb(19 18 9 / 0.55);
+  --summit-panel-line: rgb(255 255 255 / 0.15);
+  --summit-ok: #6ee7b7;
+  --summit-warn: #fde68a;
+  --summit-bad: #fca5a5;
+
+  font-family: var(--font-summit-sans), system-ui, sans-serif;
+  color: var(--summit-cream);
+  background: var(--summit-night);
+}
+
+/* Panels on pale photos turn to frosted white with ink type. */
+.summit-light {
+  --summit-cream: #131209;
+  --summit-cream-muted: #5a554b;
+  --summit-line: rgb(19 18 9 / 0.12);
+  --summit-panel: rgb(255 255 255 / 0.62);
+  --summit-panel-line: rgb(255 255 255 / 0.8);
+  --summit-ok: #047857;
+  --summit-warn: #92400e;
+  --summit-bad: #b91c1c;
+}
+
+/* The details panel only sits on the photo from lg up; below that it is on the dark page. */
+@media (min-width: 1024px) {
+  .summit-light-lg {
+    --summit-cream: #131209;
+    --summit-cream-muted: #5a554b;
+    --summit-line: rgb(19 18 9 / 0.12);
+    --summit-panel: rgb(255 255 255 / 0.62);
+    --summit-panel-line: rgb(255 255 255 / 0.8);
+  }
+}
+
+.summit-mono {
+  font-family: var(--font-summit-mono), ui-monospace, monospace;
+}
+
+/* Big, tight display type. */
+.summit-display {
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+
+/* Left to right ink fade on the hero heading. A mask keeps it
+   intact while SplitText animates each word as its own layer. */
+.summit-ink-fade {
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.62) 100%);
+  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.62) 100%);
+}
+
+/* Gentle heavy fade up on load. */
+@keyframes summit-rise {
+  from {
+    opacity: 0;
+    transform: translateY(64px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.summit-rise {
+  animation: summit-rise 1100ms var(--summit-ease) both;
+}
+
+/* The photo settles down into place, like dusk falling. */
+@keyframes summit-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.06) translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.summit-settle {
+  animation: summit-settle 2400ms var(--summit-ease) both;
+}
+
+@keyframes summit-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.summit-ping {
+  animation: summit-ping 2s var(--summit-ease) infinite;
+}
+
+@keyframes summit-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.summit-caret {
+  animation: summit-caret 1s steps(1) infinite;
+}
+
+/* Answer panel and quote swaps. */
+@keyframes summit-swap {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.summit-swap {
+  animation: summit-swap 800ms var(--summit-ease) both;
+}
+
+/* Quote timer line; its animationend advances to the next quote. */
+@keyframes summit-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.summit-progress {
+  transform-origin: left;
+  animation-name: summit-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summit-rise,
+  .summit-settle,
+  .summit-caret,
+  .summit-swap,
+  .summit-progress,
+  .summit-ping {
+    animation: none;
+  }
+}

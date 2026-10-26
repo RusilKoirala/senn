@@ -16,6 +16,14 @@ export default function Home() {
 }
 ```
 
+## Available templates
+
+| Template | Install |
+| --- | --- |
+| Cove · Modern SaaS | `npx senn-ui@latest add modern-saas` |
+| Summit · Developer portfolio | `npx senn-ui@latest add developer-portfolio` |
+| Margin · Minimal portfolio | `npx senn-ui@latest add minimal-portfolio` |
+
 ## Commands
 
 | Command | What it does |
@@ -39,3 +47,9 @@ Next.js 15 or newer, React 19, Tailwind CSS v4, and the `@/` import alias in `ts
 ## License
 
 MIT
+
+## Verify a local release
+
+From the repository, run `pnpm --dir site check`. This regenerates the registry, checks CLI installs into both root and `src` projects, checks lint, and builds the website.
+
+The public CLI reads the registry and source files from the repository’s `main` branch. New or changed templates become publicly installable after those files are committed and pushed there. Deploy the website from the same revision so its gallery and setup instructions match the registry.

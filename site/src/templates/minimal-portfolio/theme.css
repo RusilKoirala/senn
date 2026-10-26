@@ -1,0 +1,209 @@
+/* Margin template tokens. Scoped to .margin so templates never leak into each other. */
+
+.margin {
+  --margin-cell: 40px;
+  --margin-width: 720px;
+  --margin-bg: #f8f7f2;
+  --margin-fg: #20382d;
+  --margin-secondary: #647168;
+  --margin-card: #fffef9;
+  --margin-muted: #eaece3;
+  --margin-line: #d9dfd4;
+  --margin-grid: rgb(48 77 55 / 0.045);
+  --margin-accent: #467258;
+  --margin-stamp: #dce8ce;
+  --margin-ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  font-family: var(--font-margin-sans), system-ui, sans-serif;
+  color: var(--margin-fg);
+  background-color: var(--margin-bg);
+  transition:
+    background-color 0.4s var(--margin-ease),
+    color 0.4s var(--margin-ease);
+}
+
+.margin[data-theme="dark"] {
+  --margin-bg: #181818;
+  --margin-fg: #f3f4f3;
+  --margin-secondary: #a7aca9;
+  --margin-card: #1f1f1f;
+  --margin-muted: #272727;
+  --margin-line: rgb(255 255 255 / 0.1);
+  --margin-grid: rgb(255 255 255 / 0.035);
+  --margin-accent: #b7d3a9;
+  --margin-stamp: #304a39;
+}
+
+@media (max-width: 639px) {
+  .margin {
+    --margin-cell: 32px;
+  }
+}
+
+.margin-mono {
+  font-family: var(--font-margin-mono), ui-monospace, monospace;
+}
+
+/* Graph paper: hairlines every cell, anchored to the top centre. */
+.margin-grid {
+  background-image:
+    linear-gradient(var(--margin-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--margin-grid) 1px, transparent 1px);
+  background-position: top center;
+  background-size: var(--margin-cell) var(--margin-cell);
+}
+
+/* Corner brackets around the banner, sitting on the grid. */
+.margin-corners {
+  position: relative;
+}
+
+.margin-corners::before,
+.margin-corners::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border: 1px solid color-mix(in srgb, var(--margin-fg) 80%, transparent);
+}
+
+.margin-corners::before {
+  left: -20px;
+  top: -12px;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.margin-corners::after {
+  right: -20px;
+  bottom: -32px;
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+@media (max-width: 639px) {
+  .margin-corners::before,
+  .margin-corners::after {
+    display: none;
+  }
+}
+
+.margin-glass {
+  background: color-mix(in srgb, var(--margin-bg) 75%, transparent);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+}
+
+/* Gentle fade up on load and on view. */
+@keyframes margin-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.margin-rise {
+  animation: margin-rise 900ms var(--margin-ease) both;
+}
+
+@keyframes margin-ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.margin-ping {
+  animation: margin-ping 2s var(--margin-ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .margin,
+  .margin-rise,
+  .margin-ping {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Keep the reference's 720px measure while retaining side gutters on tablets. */
+.margin .margin-container {
+  width: calc(100% - 40px);
+  max-width: var(--margin-width);
+  margin-inline: auto;
+}
+
+.margin :where(a, button, [tabindex="0"]) {
+  transition-timing-function: var(--margin-ease);
+}
+
+.margin :where(a, button, [tabindex="0"]):focus-visible {
+  outline: 2px solid var(--margin-fg);
+  outline-offset: 4px;
+}
+
+.margin :where(h1, h2, h3) {
+  text-wrap: balance;
+}
+
+.margin :where(p, li) {
+  text-wrap: pretty;
+}
+
+.margin :where(a, button):active {
+  transform: translateY(1px);
+}
+
+.margin[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .margin *,
+  .margin *::before,
+  .margin *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The working notebook: a quiet gutter rule and a small ink registration mark. */
+@media (min-width: 900px) {
+  .margin main {
+    background-image: linear-gradient(var(--margin-line), var(--margin-line));
+    background-repeat: no-repeat;
+    background-position: calc(50% - 392px) 40px;
+    background-size: 1px calc(100% - 40px);
+  }
+}
+
+.margin .margin-project-cover > div {
+  inset: 24px 24px 0;
+}
+
+.margin .margin-project-index {
+  border-radius: 12px;
+}
+
+.margin .margin-project-index:hover {
+  border-color: var(--margin-accent);
+}
+
+.margin .margin-project-index .margin-project-cover > div {
+  width: 280px;
+  left: 16px;
+  right: auto;
+  top: 24px;
+  bottom: -40px;
+  transform: rotate(-5deg);
+}

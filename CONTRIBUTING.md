@@ -12,7 +12,7 @@ Thanks for helping. Senn is a small collection of finished landing pages, so the
 
 ## Run it locally
 
-You need Node.js 20 or newer and [pnpm](https://pnpm.io).
+Use Node.js 24 and [pnpm](https://pnpm.io) for repository development. The registry generator runs TypeScript directly with Node’s built in type stripping; the CLI package itself supports Node.js 18.17 or newer.
 
 ```bash
 cd site
@@ -79,6 +79,8 @@ cd site
 pnpm registry
 ```
 
+Then run `pnpm verify:registry` to exercise the CLI against the checkout, verify every installed file byte for byte (including images), install agent skills, and check overwrite protection in both root and `src` layouts.
+
 This writes `registry.json` at the repository root. It fails if the packages listed in `catalog.ts` don't match what the template actually imports, so keep them in sync. Commit `registry.json` with your template.
 
 ## Submitting a template
@@ -96,9 +98,7 @@ The best way to get a template accepted: make it look like nothing else in the g
 
 ```bash
 cd site
-pnpm lint
-pnpm exec tsc --noEmit
-pnpm build
+pnpm check
 ```
 
 - Keep pull requests small and focused on one change.
