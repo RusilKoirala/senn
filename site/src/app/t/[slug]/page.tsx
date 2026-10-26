@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: PageProps<"/t/[slug]">) {
   const { slug } = await params;
   const template = getTemplate(slug);
   return template
-    ? { description: template.description, ...(template.noindex ? { robots: { index: false, follow: false } } : {}) }
+    ? { title: `${template.name} demo`, description: template.description, alternates: { canonical: `/templates/${template.slug}` }, ...(template.noindex ? { robots: { index: false, follow: false } } : {}) }
     : {};
 }
 
