@@ -1,0 +1,93 @@
+/* Contour: an object, a room, and a finish to choose. All styles are scoped. */
+.contour {
+  --contour-cobalt: #1645ed;
+  --contour-cobalt-deep: #0f33bd;
+  --contour-ice: #f1f4f8;
+  --contour-mist: #e4e8ef;
+  --contour-white: #ffffff;
+  --contour-ink: #17191c;
+  --contour-muted: #5b6270;
+  --contour-pale: #c9d4ff;
+  --contour-rule: rgb(23 25 28 / .12);
+  --contour-ease: cubic-bezier(.22,.68,0,1);
+  --contour-marquee-size: var(--text-6xl);
+  color: var(--contour-ink);
+  background: var(--contour-ice);
+  font-family: var(--font-contour-sans), sans-serif;
+  overflow: clip;
+  color-scheme: light;
+}
+.contour *, .contour *::before, .contour *::after { box-sizing: border-box; }
+.contour .contour-container { width: calc(100% - 48px); max-width: 1280px; margin-inline: auto; }
+.contour :where(h1,h2,h3,p) { margin-bottom: 0; }
+.contour :where(h1,h2,h3) { text-wrap: balance; }
+.contour p { text-wrap: pretty; }
+.contour :where(button,a,summary,label) { -webkit-tap-highlight-color: transparent; transition-timing-function: var(--contour-ease); }
+.contour :where(a,button,summary):focus-visible { outline: 2px solid var(--contour-cobalt); outline-offset: 4px; }
+.contour :where(button,summary) { cursor: pointer; }
+.contour :where(section,[id]) { scroll-margin-top: 80px; }
+.contour .contour-section { padding-block: 80px; }
+.contour .contour-title { font-size: var(--text-4xl); line-height: var(--text-4xl--line-height); font-weight: 500; letter-spacing: -.045em; }
+.contour .contour-headline { font-weight: 500; letter-spacing: -.055em; line-height: 1; }
+.contour .contour-label { font-size: var(--text-xs); line-height: var(--text-xs--line-height); font-weight: 500; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.contour .contour-photo { object-fit: cover; }
+.contour .contour-dim { color: var(--contour-muted); }
+
+.contour .contour-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 48px; padding: 8px 12px 8px 24px; border-radius: 9999px;
+  background: var(--contour-cobalt); color: var(--contour-white);
+  font-size: var(--text-base); font-weight: 600; line-height: var(--text-base--line-height);
+  text-decoration: none; transition: background-color 600ms var(--contour-ease), transform 600ms var(--contour-ease);
+}
+.contour .contour-button-icon { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 9999px; background: var(--contour-white); color: var(--contour-cobalt); transition: transform 600ms var(--contour-ease); }
+.contour .contour-button:hover:not(:disabled) { background: var(--contour-cobalt-deep); }
+.contour .contour-button:hover:not(:disabled) .contour-button-icon { transform: translateX(2px); }
+.contour .contour-button:active:not(:disabled) { transform: scale(.98); }
+.contour .contour-button:disabled { cursor: not-allowed; opacity: .45; }
+.contour .contour-button-light { background: var(--contour-white); color: var(--contour-cobalt); }
+.contour .contour-button-light .contour-button-icon { background: var(--contour-cobalt); color: var(--contour-white); }
+.contour .contour-button-light:hover:not(:disabled) { background: var(--contour-ice); }
+.contour .contour-button-small { min-height: 40px; padding: 8px 16px; font-size: var(--text-sm); line-height: var(--text-sm--line-height); }
+.contour .contour-button-ghost { background: transparent; color: var(--contour-ink); box-shadow: inset 0 0 0 1px var(--contour-rule); padding-inline: 24px; }
+.contour .contour-button-ghost:hover:not(:disabled) { background: var(--contour-white); }
+.contour .contour-link { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-sm); font-weight: 500; text-decoration: underline; text-decoration-color: var(--contour-rule); text-underline-offset: 6px; transition: text-decoration-color 600ms var(--contour-ease), color 600ms var(--contour-ease); }
+.contour .contour-link:hover { color: var(--contour-cobalt); text-decoration-color: currentColor; }
+
+.contour .contour-plane { position: relative; overflow: hidden; border-radius: 24px; background: var(--contour-mist); }
+.contour .contour-finish-image { transition: opacity 900ms var(--contour-ease), transform 1200ms var(--contour-ease); }
+.contour .contour-finish-image[data-active="false"] { opacity: 0; transform: scale(1.03); }
+.contour .contour-swatch { position: relative; display: flex; align-items: center; gap: 16px; min-height: 64px; padding: 8px 16px 8px 8px; border-radius: 9999px; box-shadow: inset 0 0 0 1px var(--contour-rule); transition: background-color 600ms var(--contour-ease), box-shadow 600ms var(--contour-ease); cursor: pointer; }
+.contour .contour-swatch:hover { background: var(--contour-white); }
+.contour .contour-swatch:has(input:checked) { background: var(--contour-white); box-shadow: inset 0 0 0 2px var(--contour-ink); }
+.contour .contour-swatch:has(input:focus-visible) { outline: 2px solid var(--contour-cobalt); outline-offset: 4px; }
+.contour .contour-swatch-dot { width: 48px; height: 48px; flex-shrink: 0; border-radius: 9999px; transition: transform 600ms var(--contour-ease); }
+.contour .contour-swatch:has(input:checked) .contour-swatch-dot { transform: scale(.84); }
+
+.contour .contour-faq summary { list-style: none; }
+.contour summary::-webkit-details-marker { display: none; }
+.contour .contour-faq details { border-bottom: 1px solid var(--contour-rule); }
+.contour .contour-faq details:first-child { border-top: 1px solid var(--contour-rule); }
+.contour details .contour-plus { transition: transform 600ms var(--contour-ease); }
+.contour details[open] .contour-plus { transform: rotate(45deg); }
+.contour .contour-details-copy { animation: contour-enter 700ms var(--contour-ease) both; }
+
+.contour .contour-dialog {
+  position: fixed; inset: 0; width: min(560px, calc(100% - 32px)); max-height: calc(100svh - 48px); overflow: auto;
+  margin: auto; padding: 32px; border: 0; border-radius: 24px; background: var(--contour-white); color: var(--contour-ink);
+  font-family: var(--font-contour-sans), sans-serif;
+}
+.contour .contour-dialog::backdrop { background: rgb(23 25 28 / .55); backdrop-filter: blur(6px); }
+.contour .contour-dialog[open] { animation: contour-enter 500ms var(--contour-ease) both; }
+.contour .contour-menu[open] { position: fixed; inset: 0; display: flex; flex-direction: column; width: 100%; max-width: none; height: 100svh; max-height: none; border: 0; border-radius: 0; margin: 0; padding: 24px; background: rgb(241 244 248 / .92); backdrop-filter: blur(40px); }
+.contour .contour-menu:not([open]) { display: none; }
+.contour .contour-menu-link { animation: contour-rise 800ms var(--contour-ease) both; }
+@keyframes contour-enter { from { opacity: .4; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes contour-rise { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+
+@media (min-width: 640px) { .contour .contour-title { font-size: var(--text-5xl); line-height: 1; } .contour { --contour-marquee-size: var(--text-8xl); } }
+@media (min-width: 1024px) { .contour .contour-section { padding-block: 96px; } .contour .contour-title { font-size: var(--text-6xl); } .contour { --contour-marquee-size: var(--text-9xl); } }
+@media (max-width: 359px) { .contour .contour-container { width: calc(100% - 32px); } }
+@media (prefers-reduced-motion: reduce) {
+  .contour *, .contour *::before, .contour *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -16,6 +16,16 @@ You've built the product, and now it needs a page. A blank file plus a coding ag
 
 Built with Tailwind CSS, shadcn/ui and React Bits. Every template is one self contained folder: sections, copy, theme and images.
 
+### Product design — Contour
+
+![Product design](site/src/senn/previews/product-design.jpg)
+
+A physical product page with a working finish selector, share link and specification download.
+
+```bash
+npx senn-ui@latest add product-design
+```
+
 ### Design conference — Assembly
 
 ![Design conference](site/src/senn/previews/design-conference.jpg)

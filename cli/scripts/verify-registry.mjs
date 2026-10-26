@@ -44,6 +44,12 @@ try {
       assert(template.files.includes("assets/IMAGE_SOURCES.md"), "Image sources missing");
       assert(template.skill.includes("verified date and timezone"), "Event skill asks for the wrong content");
     }
+    if (template.slug === "product-design") {
+      assert(template.files.includes("REACT_BITS_LICENSE"), "React Bits license missing");
+      assert(template.files.includes("THIRD_PARTY_NOTICES.md"), "Third party notices missing");
+      assert(template.files.includes("assets/IMAGE_SOURCES.md"), "Image sources missing");
+      assert(template.files.includes("lib/spec.ts"), "Specification logic missing");
+    }
 
     for (const layout of ["src", "root"]) {
       const fixture = join(scratch, `${template.slug}-${layout}`);

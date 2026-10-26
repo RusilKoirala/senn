@@ -58,6 +58,27 @@ export const catalog: TemplateMeta[] = [
     ],
   },
   {
+    slug: "product-design",
+    name: "Product design",
+    codename: "Contour",
+    previewNoindex: true,
+    status: "live",
+    description:
+      "A physical product page in cobalt and cool white. Large object photography, measured drawings and a working finish selector with share link and specification download.",
+    tags: ["Light", "Product photography", "Finish selector", "React Bits"],
+    sections: 10,
+    dependencies: ["gsap", "@gsap/react", "motion", "@phosphor-icons/react"],
+    brandClass: "contour",
+    agentNotes: [
+      "Contour and the C01 desk light are fictional. Replace every specification, dimension, finish, contact and legal detail with verified information, then remove the sample labels. Add real pricing and a purchase destination before selling anything.",
+      "Finishes live in `finishes` in content.ts. Each has an id, name, code, swatch colour, note and photograph. The selector, the share link (?finish=<id>) and the downloaded specification all read from this list, so add or remove finishes there.",
+      "The measured drawing in sections/specs.tsx reads `specs.drawing`. Keep the figures and `specs.rows` in sync, and redraw the SVG paths if the product's shape changes.",
+      "Photographs live in assets/ (cobalt.jpg, graphite.jpg, room.jpg). Replace them with real product photography of every finish, shot on the same backdrop and framing so the finish crossfade lines up. Update alt text in content.ts. Sources are documented in assets/IMAGE_SOURCES.md.",
+      "Preserve REACT_BITS_LICENSE and THIRD_PARTY_NOTICES.md. React Bits components retain their upstream MIT + Commons Clause terms; Senn's MIT license does not relicense them.",
+      "The demo is noindex in Senn. Add Product or Offer structured data in the host app only once the product, price and availability are real.",
+    ],
+  },
+  {
     slug: "design-conference",
     name: "Design conference",
     codename: "Assembly",
