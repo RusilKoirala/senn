@@ -107,6 +107,16 @@ pnpm check
 - Add before and after screenshots (desktop and mobile) for anything visual.
 - Say how you tested it.
 
+## Getting credited
+
+Every kind of contribution gets you a spot in the README's contributors list: code, design, docs, bug reports, ideas. After your contribution lands, the maintainer adds you by commenting on the issue or pull request:
+
+```
+@all-contributors please add @your-username for code, design
+```
+
+The bot opens a pull request that updates the list. You can also ask for it yourself in that comment thread.
+
 ## License
 
 By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).

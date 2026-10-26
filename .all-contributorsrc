@@ -1,0 +1,21 @@
+{
+  "projectName": "senn",
+  "projectOwner": "RusilKoirala",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributorsPerLine": 7,
+  "linkToUsage": false,
+  "contributors": [
+    {
+      "login": "RusilKoirala",
+      "name": "Rusil Koirala",
+      "avatar_url": "https://avatars.githubusercontent.com/u/209594643",
+      "profile": "https://github.com/RusilKoirala",
+      "contributions": ["code", "design", "doc", "maintenance", "infra"]
+    }
+  ]
+}

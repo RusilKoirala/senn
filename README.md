@@ -48,6 +48,26 @@ Open http://localhost:3000. Templates render on their own at `/t/<template>`.
 
 Bug reports, fixes and new templates are welcome. Anyone can submit a template; the collection is curated, so the ones that fit get added. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Contributors
+
+Everyone who helps gets credited here, for code, design, docs, bug reports and ideas.
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/RusilKoirala"><img src="https://avatars.githubusercontent.com/u/209594643?s=100" width="100px;" alt="Rusil Koirala"/><br /><sub><b>Rusil Koirala</b></sub></a><br /><a href="https://github.com/RusilKoirala/senn/commits?author=RusilKoirala" title="Code">💻</a> <a href="#design-RusilKoirala" title="Design">🎨</a> <a href="https://github.com/RusilKoirala/senn/commits?author=RusilKoirala" title="Documentation">📖</a> <a href="#maintenance-RusilKoirala" title="Maintenance">🚧</a> <a href="#infra-RusilKoirala" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## License
 
 [MIT](LICENSE). Use the templates in personal and commercial work, no attribution needed.
