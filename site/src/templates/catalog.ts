@@ -26,7 +26,7 @@ export const catalog: TemplateMeta[] = [
       "A calm, photographic page for a software product. Editorial serif headlines over landscape photography, a scroll drawn onboarding trail and a sticky benefits story.",
     tags: ["Light", "Photography", "Editorial serif", "Scroll stories"],
     sections: 9,
-    dependencies: ["gsap", "@gsap/react", "motion", "@phosphor-icons/react", "clsx", "tailwind-merge"],
+    dependencies: ["gsap", "@gsap/react", "motion", "@phosphor-icons/react"],
     brandClass: "cove",
     agentNotes: [
       "The product mockups (the inbox in the hero and the four looping benefit visuals) read their text from `inbox` and `visuals` in content.ts. Rewrite them so they show my product doing its job, with realistic specific details.",

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "registry": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-registry.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -1,0 +1,34 @@
+{
+  "name": "senn",
+  "version": "0.1.0",
+  "description": "Add Senn's open source landing page templates to your Next.js project.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "senn": "./bin/senn.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "keywords": [
+    "landing page",
+    "template",
+    "nextjs",
+    "tailwindcss",
+    "shadcn",
+    "react-bits"
+  ],
+  "homepage": "https://github.com/rusilkoirala/senn",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rusilkoirala/senn.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/rusilkoirala/senn/issues"
+  }
+}

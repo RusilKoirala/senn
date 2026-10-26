@@ -8,7 +8,7 @@
   --cove-sea: #0f8f8a;
   --cove-ease: cubic-bezier(0.32, 0.72, 0, 1);
 
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-cove-sans), system-ui, sans-serif;
   color: var(--cove-ink);
   background: var(--cove-surface);
 }
