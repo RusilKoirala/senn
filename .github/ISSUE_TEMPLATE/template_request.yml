@@ -1,0 +1,37 @@
+name: Template request
+description: Suggest a landing page template for Senn.
+labels: ["template request"]
+body:
+  - type: markdown
+    attributes:
+      value: Senn adds only a few templates, each with its own look. Tell us what kind of page is missing and who it is for.
+  - type: input
+    id: kind
+    attributes:
+      label: What kind of landing page?
+      placeholder: Mobile app launch, podcast, open source library, restaurant…
+    validations:
+      required: true
+  - type: textarea
+    id: who
+    attributes:
+      label: Who would use it?
+      description: The kind of product or person this page is for.
+    validations:
+      required: true
+  - type: textarea
+    id: look
+    attributes:
+      label: Look and feel
+      description: Mood, references, sites you like. Links and screenshots welcome.
+  - type: textarea
+    id: sections
+    attributes:
+      label: Sections it needs
+      placeholder: Hero, features, pricing, testimonials, FAQ…
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd like to help build it.

@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/templates/[slug]">) {
   const { slug } = await params;
   const t = getMeta(slug);
-  return t ? { title: `${t.name} template — Senn`, description: t.description } : {};
+  return t ? { description: t.description } : {};
 }
 
 export default function TemplateDetailPage({ params }: PageProps<"/templates/[slug]">) {

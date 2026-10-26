@@ -10,6 +10,8 @@ export const links = {
 };
 
 export const addCommand = (slug: string) => `npx senn@latest add ${slug}`;
+// Downloads the template's agent skill into .claude/skills/senn-<slug>/SKILL.md.
+export const skillCommand = (slug: string) => `npx senn@latest skill ${slug}`;
 
 export const openSource = {
   title: "Open source",

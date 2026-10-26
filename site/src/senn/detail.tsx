@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { TemplateMeta } from "@/templates/catalog";
 import { agentPrompt, agentSkill, skillPath } from "./agent-prompt";
 import { CopyCommand } from "./components/copy-command";
-import { addCommand, links } from "./content";
+import { addCommand, links, skillCommand } from "./content";
 import { previews } from "./previews";
 
 type AgentTab = "prompt" | "skill";
@@ -126,11 +126,20 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
               </Step>
 
               <Step n={2} title="Make it yours with your AI agent">
-                <p className="text-sm text-pretty text-(--senn-muted)">
-                  {tab === "prompt"
-                    ? "Paste into Claude Code, Cursor, Codex or any coding agent. It asks about your product, then rewrites the copy, colors and images."
-                    : `Save as ${skillPath(t)}, then ask your agent to make the template yours.`}
-                </p>
+                {tab === "prompt" ? (
+                  <p className="text-sm text-pretty text-(--senn-muted)">
+                    Paste into Claude Code, Cursor, Codex or any coding agent. It asks about your product, then rewrites
+                    the copy, colors and images.
+                  </p>
+                ) : (
+                  <>
+                    <CopyCommand command={skillCommand(t.slug)} />
+                    <p className="text-sm text-pretty text-(--senn-muted)">
+                      Downloads it to <code className="font-mono text-xs">{skillPath(t)}</code>. Then ask your agent to
+                      make the template yours. Or copy the file below.
+                    </p>
+                  </>
+                )}
                 <div className="overflow-hidden rounded-xl border border-(--senn-line) bg-(--senn-surface)">
                   <div className="flex items-center justify-between gap-2 border-b border-(--senn-line) p-1.5">
                     <div role="tablist" aria-label="Agent instructions" className="flex gap-1">

@@ -1,0 +1,47 @@
+name: Bug report
+description: Something is broken, misaligned, inaccessible or slow.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report this. The more specific, the faster it gets fixed.
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where is the bug?
+      options:
+        - Modern SaaS template
+        - The Senn site (gallery, template page, viewer)
+        - Docs
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open /templates/modern-saas/preview
+        2. Switch to Mobile
+        3. Scroll to the FAQ
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, OS and screen size
+      placeholder: Safari 18 on iOS 18, 390 × 844
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recording
+      description: Drag images or a short video here.

@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Senn — Open source landing page templates",
+  // Every page shows just "Senn" in the tab.
+  title: "Senn",
   description: "Free, open source landing page templates for Next.js. MIT licensed.",
 };
 
