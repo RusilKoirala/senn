@@ -6,7 +6,8 @@ Thanks for helping. Senn is a small collection of finished landing pages, so the
 
 - **Report a bug:** something broken, misaligned, inaccessible or slow. Use the bug report issue form.
 - **Improve a template:** fix a layout on some screen size, sharpen an animation, improve accessibility or performance.
-- **Suggest a template:** open a template request issue. Please don't start a whole new template without discussing it in an issue first.
+- **Submit a new template:** build one and open a pull request. See [Submitting a template](#submitting-a-template).
+- **Suggest a template:** no time to build it? Open a template request issue.
 - **Improve the site:** the gallery, the template pages, the docs.
 
 ## Run it locally
@@ -66,6 +67,17 @@ Rules:
 - **React Bits components** are added through the shadcn registry (`pnpm dlx shadcn@latest add @react-bits/<Name>-TS-TW`) and moved into the template's `components/` folder unchanged.
 
 When a template is ready, register it in `src/templates/index.ts` and `src/templates/catalog.ts`, then add a 16:10 screenshot to `src/senn/previews/` and map it in `src/senn/previews/index.ts`.
+
+## Submitting a template
+
+Anyone can build a template and send it in. Senn stays a small, curated collection, so here is how it works:
+
+1. Build it in `src/templates/<your-template>/` following the rules above, register it, and add its preview screenshot.
+2. Open a pull request with screenshots at desktop and mobile width and a short note on who the page is for.
+3. The maintainer reviews it. Templates that fit the quality bar and add a look Senn doesn't have yet get merged. Others get closed with a short note on why. That's not a judgment of your work, just of fit for the collection.
+4. Merged templates can be revised or removed later if they no longer fit. You keep full credit in the git history, and your code stays MIT licensed either way.
+
+The best way to get a template accepted: make it look like nothing else in the gallery, finish every section (no placeholders), and make it work on phones.
 
 ## Before you open a pull request
 

@@ -36,7 +36,7 @@ Open http://localhost:3000. Templates render on their own at `/t/<template>`.
 
 ## Contributing
 
-Bug reports, fixes and template ideas are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Bug reports, fixes and new templates are welcome. Anyone can submit a template; the collection is curated, so the ones that fit get added. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
