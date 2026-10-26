@@ -1,33 +1,66 @@
-/* Senn's own site: a dark gallery wall so the templates read as the artwork. */
+/* Senn's own site. Light by default; dark from the system setting, or from the
+   toggle (data-theme on <html>), which wins over the system. */
 
 .senn {
-  --senn-bg: #000000;
-  --senn-surface: #181818;
-  --senn-raised: #1f1f1f;
-  --senn-ink: #ffffff;
-  --senn-muted: #9b9b9b;
-  --senn-line: rgb(255 255 255 / 0.1);
-  --senn-live: #6ee7a8;
+  --senn-bg: #ffffff;
+  --senn-surface: #f5f5f5;
+  --senn-raised: #ebebeb;
+  --senn-ink: #0a0a0a;
+  --senn-muted: #666666;
+  --senn-line: rgb(0 0 0 / 0.1);
   --senn-ease: cubic-bezier(0.32, 0.72, 0, 1);
 
   font-family: var(--font-sans), system-ui, sans-serif;
   color: var(--senn-ink);
   background: var(--senn-bg);
+  color-scheme: light;
+}
+
+.senn .senn-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .senn {
+    --senn-bg: #000000;
+    --senn-surface: #181818;
+    --senn-raised: #272727;
+    --senn-ink: #ffffff;
+    --senn-muted: #9b9b9b;
+    --senn-line: rgb(255 255 255 / 0.1);
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) .senn .senn-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .senn .senn-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .senn {
+  --senn-bg: #000000;
+  --senn-surface: #181818;
+  --senn-raised: #272727;
+  --senn-ink: #ffffff;
+  --senn-muted: #9b9b9b;
+  --senn-line: rgb(255 255 255 / 0.1);
   color-scheme: dark;
 }
 
-/* Dark hero heading: left to right #FFFFFF → #9B9B9B, as a mask so
-   SplitText's per word layers keep it. */
-.senn-ink-fade {
-  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
-  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
+:root[data-theme="dark"] .senn .senn-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .senn .senn-moon {
+  display: none;
 }
 
 @keyframes senn-rise {
   from {
     opacity: 0;
-    transform: translateY(64px);
-    filter: blur(12px);
+    transform: translateY(24px);
+    filter: blur(8px);
   }
   to {
     opacity: 1;
@@ -37,7 +70,7 @@
 }
 
 .senn-rise {
-  animation: senn-rise 1100ms var(--senn-ease) both;
+  animation: senn-rise 900ms var(--senn-ease) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

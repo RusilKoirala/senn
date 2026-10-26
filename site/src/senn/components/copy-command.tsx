@@ -30,7 +30,7 @@ export function CopyCommand({ command, className }: { command: string; className
         type="button"
         onClick={copy}
         aria-label={copied ? "Copied" : "Copy command"}
-        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-(--senn-raised) text-(--senn-ink) transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:scale-95"
+        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-(--senn-raised) text-(--senn-ink) transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-(--senn-ink) hover:text-(--senn-bg) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--senn-ink) active:scale-95"
       >
         {copied ? <CheckIcon size={14} weight="bold" /> : <CopyIcon size={14} />}
       </button>

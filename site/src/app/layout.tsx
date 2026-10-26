@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { themeScript } from "@/senn/theme-script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,17 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Senn — Beautiful landing pages, completely free",
-  description:
-    "Open source landing pages built with Next.js, Tailwind CSS, shadcn/ui and React Bits. Preview, customize, and install with one command.",
+  title: "Senn — Open source landing page templates",
+  description: "Free, open source landing page templates for Next.js. MIT licensed.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    // suppressHydrationWarning: the theme script may set data-theme before React loads.
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
