@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "senn": "./bin/senn.mjs"
+    "senn": "bin/senn.mjs"
   },
   "files": [
     "bin",
