@@ -24,6 +24,8 @@ pnpm dev
 - A template on its own: http://localhost:3000/t/modern-saas
 - A template's page and live viewer: http://localhost:3000/templates/modern-saas
 
+**If pnpm fails** with `Cannot find module …/corepack/…/pnpm.cjs`, your `pnpm` is Node's corepack shim, which can't launch the pinned pnpm 12. Install pnpm on its own (`npm install -g pnpm` or the [standalone installer](https://pnpm.io/installation)) and run `corepack disable pnpm`. Scripts also run with npm, for example `npm run registry`.
+
 ## Project structure
 
 ```
