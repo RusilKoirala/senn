@@ -1,0 +1,123 @@
+/* Cove template tokens. Scoped to .cove so templates never leak into each other. */
+
+.cove {
+  --cove-ink: #0a0a0a;
+  --cove-muted: #5c5c5c;
+  --cove-line: rgb(10 10 10 / 0.08);
+  --cove-surface: #ffffff;
+  --cove-sea: #0f8f8a;
+  --cove-ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  font-family: var(--font-sans), system-ui, sans-serif;
+  color: var(--cove-ink);
+  background: var(--cove-surface);
+}
+
+.cove-display {
+  font-family: var(--font-cove-display), Georgia, serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.02em;
+}
+
+/* Left to right ink fade on headings. A mask keeps it
+   intact while SplitText animates each word as its own layer. */
+.cove-ink-fade {
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
+  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
+}
+
+/* ScrollExpand renders its title in bold sans; switch it to the display serif. */
+.cove-expand [class*="font-size:var(--se-title-size)"] {
+  font-family: var(--font-cove-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--cove-ink);
+  text-shadow: none;
+}
+
+/* MaskedHeading crops its photo to the vertical centre, which in the cove photo is
+   white sky. Frame the turquoise water instead so the letters read on white. */
+.cove-wordmark img {
+  object-position: 50% 80%;
+}
+
+/* On narrow screens the letters are taller than the water band; zoom into it. */
+@media (max-width: 639px) {
+  .cove-wordmark img {
+    transform: scale(2.2);
+    transform-origin: 50% 80%;
+  }
+}
+
+/* Gentle heavy fade up on load. */
+@keyframes cove-rise {
+  from {
+    opacity: 0;
+    transform: translateY(64px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.cove-rise {
+  animation: cove-rise 1100ms var(--cove-ease) both;
+}
+
+/* Quick crossfade when the sticky benefit panel swaps its mini UI. */
+@keyframes cove-swap {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.cove-swap {
+  animation: cove-swap 700ms var(--cove-ease) both;
+}
+
+/* Testimonial timer line; its animationend advances to the next quote. */
+@keyframes cove-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.cove-progress {
+  transform-origin: left;
+  animation-name: cove-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@keyframes cove-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.cove-caret {
+  animation: cove-caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cove-rise,
+  .cove-caret,
+  .cove-swap,
+  .cove-progress {
+    animation: none;
+  }
+}

@@ -1,0 +1,47 @@
+/* Senn's own site: a dark gallery wall so the templates read as the artwork. */
+
+.senn {
+  --senn-bg: #000000;
+  --senn-surface: #181818;
+  --senn-raised: #1f1f1f;
+  --senn-ink: #ffffff;
+  --senn-muted: #9b9b9b;
+  --senn-line: rgb(255 255 255 / 0.1);
+  --senn-live: #6ee7a8;
+  --senn-ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  font-family: var(--font-sans), system-ui, sans-serif;
+  color: var(--senn-ink);
+  background: var(--senn-bg);
+  color-scheme: dark;
+}
+
+/* Dark hero heading: left to right #FFFFFF → #9B9B9B, as a mask so
+   SplitText's per word layers keep it. */
+.senn-ink-fade {
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
+  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.6) 100%);
+}
+
+@keyframes senn-rise {
+  from {
+    opacity: 0;
+    transform: translateY(64px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.senn-rise {
+  animation: senn-rise 1100ms var(--senn-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .senn-rise {
+    animation: none;
+  }
+}
