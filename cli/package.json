@@ -1,11 +1,11 @@
 {
-  "name": "senn",
+  "name": "senn-ui",
   "version": "0.1.0",
   "description": "Add Senn's open source landing page templates to your Next.js project.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "senn": "bin/senn.mjs"
+    "senn-ui": "bin/senn-ui.mjs"
   },
   "files": [
     "bin",

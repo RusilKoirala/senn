@@ -1,9 +1,9 @@
-# senn
+# senn-ui
 
 Add [Senn](https://github.com/rusilkoirala/senn)'s open source landing page templates to your Next.js project.
 
 ```bash
-npx senn@latest add modern-saas
+npx senn-ui@latest add modern-saas
 ```
 
 This copies the template into `src/templates/modern-saas` (sections, copy, theme and images), installs the packages it needs, and creates `src/lib/utils.ts` if you don't have one yet. Then render it on any route:
@@ -20,9 +20,9 @@ export default function Home() {
 
 | Command | What it does |
 | --- | --- |
-| `npx senn@latest add <template>` | Add a template to your project |
-| `npx senn@latest skill <template>` | Add an agent skill to `.claude/skills/` that turns the template into your own product's page |
-| `npx senn@latest list` | List templates |
+| `npx senn-ui@latest add <template>` | Add a template to your project |
+| `npx senn-ui@latest skill <template>` | Add an agent skill to `.claude/skills/` that turns the template into your own product's page |
+| `npx senn-ui@latest list` | List templates |
 
 ## Options
 

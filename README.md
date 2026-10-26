@@ -19,7 +19,7 @@ Senn is a small collection of complete, open source landing page templates for N
 In your Next.js project:
 
 ```bash
-npx senn@latest add modern-saas
+npx senn-ui@latest add modern-saas
 ```
 
 It copies the template into `src/templates/modern-saas`, installs its packages, and tells you how to render it. Needs Next.js 15 or newer, React 19 and Tailwind CSS v4.
@@ -27,10 +27,10 @@ It copies the template into `src/templates/modern-saas`, installs its packages, 
 Then let your coding agent (Claude Code, Cursor, Codex…) turn it into your own product's page:
 
 ```bash
-npx senn@latest skill modern-saas
+npx senn-ui@latest skill modern-saas
 ```
 
-Other commands: `npx senn@latest list`. See [cli/README.md](cli/README.md).
+Other commands: `npx senn-ui@latest list`. See [cli/README.md](cli/README.md).
 
 ## Run the site locally
 

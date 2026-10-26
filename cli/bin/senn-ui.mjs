@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// senn: add Senn landing page templates to a Next.js project.
+// senn-ui: add Senn landing page templates to a Next.js project.
 // No dependencies: Node's fetch, fs and child_process only.
 
 import { spawnSync } from "node:child_process";
@@ -11,7 +11,7 @@ const VERSION = "0.1.0";
 const DEFAULT_REGISTRY = "https://raw.githubusercontent.com/rusilkoirala/senn/main/registry.json";
 
 // For testing against a local checkout:
-//   SENN_REGISTRY=/path/to/senn/registry.json SENN_SOURCE=/path/to/senn npx senn add …
+//   SENN_REGISTRY=/path/to/senn/registry.json SENN_SOURCE=/path/to/senn npx senn-ui add …
 const REGISTRY = process.env.SENN_REGISTRY || DEFAULT_REGISTRY;
 const SOURCE = process.env.SENN_SOURCE;
 
@@ -24,12 +24,12 @@ const yellow = c(33);
 const red = c(31);
 
 const HELP = `
-${bold("senn")} ${dim(`v${VERSION}`)}  Open source landing page templates for Next.js
+${bold("senn-ui")} ${dim(`v${VERSION}`)}  Open source landing page templates for Next.js
 
 ${bold("Usage")}
-  npx senn@latest add <template>     Add a template to this project
-  npx senn@latest skill <template>   Add the template's agent skill (.claude/skills)
-  npx senn@latest list               List templates
+  npx senn-ui@latest add <template>     Add a template to this project
+  npx senn-ui@latest skill <template>   Add the template's agent skill (.claude/skills)
+  npx senn-ui@latest list               List templates
 
 ${bold("Options")}
   --dir <path>     Where to put the template (default: src/templates/<template>)
@@ -87,9 +87,9 @@ async function loadRegistry() {
 }
 
 function findTemplate(registry, slug) {
-  if (!slug) fail(`Name a template, for example ${bold("npx senn@latest add modern-saas")}. See ${bold("npx senn@latest list")}.`);
+  if (!slug) fail(`Name a template, for example ${bold("npx senn-ui@latest add modern-saas")}. See ${bold("npx senn-ui@latest list")}.`);
   const t = registry.templates.find((x) => x.slug === slug);
-  if (!t) fail(`No template called "${slug}". See ${bold("npx senn@latest list")}.`);
+  if (!t) fail(`No template called "${slug}". See ${bold("npx senn-ui@latest list")}.`);
   if (t.status !== "live") fail(`"${t.name}" isn't released yet. Follow the repo for updates.`);
   return t;
 }
@@ -226,7 +226,7 @@ ${green("Done.")} Render it on a route, for example app/page.tsx:
   ${dim("}")}
 
 Make it yours: edit ${bold(relative(root, join(target, "content.ts")))}, or let your coding agent do it:
-  ${bold(`npx senn@latest skill ${t.slug}`)}
+  ${bold(`npx senn-ui@latest skill ${t.slug}`)}
 `);
 }
 
@@ -255,7 +255,7 @@ async function list() {
     const status = t.status === "live" ? green("live") : dim("soon");
     console.log(`  ${t.status === "live" ? bold(t.slug.padEnd(22)) : dim(t.slug.padEnd(22))} ${status}  ${dim(t.name)}`);
   }
-  console.log(`\n  ${dim("npx senn@latest add <template>")}\n`);
+  console.log(`\n  ${dim("npx senn-ui@latest add <template>")}\n`);
 }
 
 const args = parseArgs(process.argv.slice(2));
@@ -266,4 +266,4 @@ else if (args.help || !command) console.log(HELP);
 else if (command === "add") await add(args);
 else if (command === "skill") await skill(args);
 else if (command === "list" || command === "ls") await list();
-else fail(`Unknown command "${command}". Run ${bold("npx senn@latest --help")}.`);
+else fail(`Unknown command "${command}". Run ${bold("npx senn-ui@latest --help")}.`);

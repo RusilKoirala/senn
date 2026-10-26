@@ -1,6 +1,6 @@
 # Templates
 
-Each template is a self-contained folder that the `npx senn` CLI can later copy into a user's project as is.
+Each template is a self-contained folder that the `npx senn-ui` CLI can copy into a user's project as is.
 
 ```
 src/templates/<slug>/

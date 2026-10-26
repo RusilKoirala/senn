@@ -8,9 +8,9 @@ export const links = {
   templateCode: (slug: string) => `${repo}/tree/main/site/src/templates/${slug}`,
 };
 
-export const addCommand = (slug: string) => `npx senn@latest add ${slug}`;
+export const addCommand = (slug: string) => `npx senn-ui@latest add ${slug}`;
 // Downloads the template's agent skill into .claude/skills/senn-<slug>/SKILL.md.
-export const skillCommand = (slug: string) => `npx senn@latest skill ${slug}`;
+export const skillCommand = (slug: string) => `npx senn-ui@latest skill ${slug}`;
 
 export const openSource = {
   title: "Open source",
