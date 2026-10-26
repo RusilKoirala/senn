@@ -1,16 +1,20 @@
 # Senn
 
+[![CI](https://github.com/RusilKoirala/senn/actions/workflows/ci.yml/badge.svg)](https://github.com/RusilKoirala/senn/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/senn-ui)](https://www.npmjs.com/package/senn-ui)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/RusilKoirala/senn?style=flat)](https://github.com/RusilKoirala/senn/stargazers)
+
 Beautiful landing pages. Zero design headaches. Completely free.
 
-Senn is a small collection of complete, open source landing page templates for Next.js, built with Tailwind CSS, shadcn/ui and React Bits. Every template is one self contained folder: sections, copy, theme and images. Preview it, copy it into your project, make it yours.
+You've built the product, and now it needs a page. A blank file plus a coding agent usually gets you the same centered hero and grid of cards as everyone else. Paid templates cost money and come wired into someone else's setup. Senn gives you complete, designed landing pages for Next.js that you copy into your project with one command and own outright.
 
-## Templates
+| Modern SaaS | Developer portfolio | Minimal portfolio |
+| --- | --- | --- |
+| ![Modern SaaS](site/src/senn/previews/modern-saas.jpg) | ![Developer portfolio](site/src/senn/previews/developer-portfolio.jpg) | ![Minimal portfolio](site/src/senn/previews/minimal-portfolio.jpg) |
+| `npx senn-ui@latest add modern-saas` | `npx senn-ui@latest add developer-portfolio` | `npx senn-ui@latest add minimal-portfolio` |
 
-| Template | Status |
-| --- | --- |
-| Modern SaaS | Live |
-| Developer portfolio | Live |
-| Minimal portfolio | Live |
+Built with Tailwind CSS, shadcn/ui and React Bits. Every template is one self contained folder: sections, copy, theme and images.
 
 ## Use a template
 

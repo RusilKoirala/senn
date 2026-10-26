@@ -10,6 +10,8 @@ Thanks for helping. Senn is a small collection of finished landing pages, so the
 - **Suggest a template:** no time to build it? Open a template request issue.
 - **Improve the site:** the gallery, the template pages, the docs.
 
+New here? Start with an issue labeled [good first issue](https://github.com/RusilKoirala/senn/labels/good%20first%20issue) or [help wanted](https://github.com/RusilKoirala/senn/labels/help%20wanted). Comment on it so nobody else picks it up at the same time.
+
 ## Run it locally
 
 Use Node.js 24 and [pnpm](https://pnpm.io) for repository development. The registry generator runs TypeScript directly with Node’s built in type stripping; the CLI package itself supports Node.js 18.17 or newer.
