@@ -120,26 +120,17 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
                       Or copy <code className="font-mono text-xs">src/templates/{t.slug}</code> from GitHub and install
                       its packages:
                     </p>
-                    <CopyCommand command={`npm install ${t.dependencies.join(" ")}`} />
+                    <CopyCommand command={`npm i ${t.dependencies.join(" ")}`} />
                   </>
                 )}
               </Step>
 
               <Step n={2} title="Make it yours with your AI agent">
-                {tab === "prompt" ? (
-                  <p className="text-sm text-pretty text-(--senn-muted)">
-                    Paste into Claude Code, Cursor, Codex or any coding agent. It asks about your product, then rewrites
-                    the copy, colors and images.
-                  </p>
-                ) : (
-                  <>
-                    <CopyCommand command={skillCommand(t.slug)} />
-                    <p className="text-sm text-pretty text-(--senn-muted)">
-                      Downloads it to <code className="font-mono text-xs">{skillPath(t)}</code>. Then ask your agent to
-                      make the template yours. Or copy the file below.
-                    </p>
-                  </>
-                )}
+                <p className="text-sm text-pretty text-(--senn-muted)">
+                  {tab === "prompt"
+                    ? "Paste into Claude Code, Cursor, Codex or any coding agent. It asks about your product, then rewrites the copy, colors and images."
+                    : "One command adds a skill your agent can use. Then just ask it to make the template yours."}
+                </p>
                 <div className="overflow-hidden rounded-xl border border-(--senn-line) bg-(--senn-surface)">
                   <div className="flex items-center justify-between gap-2 border-b border-(--senn-line) p-1.5">
                     <div role="tablist" aria-label="Agent instructions" className="flex gap-1">
@@ -155,25 +146,60 @@ export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
                             tab === k ? "bg-(--senn-bg) text-(--senn-ink) shadow-sm" : "text-(--senn-muted) hover:text-(--senn-ink)",
                           )}
                         >
-                          {k === "prompt" ? "Prompt" : "Skill file"}
+                          {k === "prompt" ? "Prompt" : "Skill"}
                         </button>
                       ))}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => copy(text)}
-                      className="flex items-center gap-1.5 rounded-lg bg-(--senn-ink) px-3 py-1.5 text-xs font-semibold text-(--senn-bg) transition-transform duration-500 active:scale-95"
-                    >
-                      {copied ? <CheckIcon size={12} weight="bold" /> : <CopyIcon size={12} />}
-                      {copied ? "Copied" : tab === "prompt" ? "Copy prompt" : "Copy skill"}
-                    </button>
+                    {tab === "prompt" && (
+                      <button
+                        type="button"
+                        onClick={() => copy(text)}
+                        className="flex items-center gap-1.5 rounded-lg bg-(--senn-ink) px-3 py-1.5 text-xs font-semibold text-(--senn-bg) transition-transform duration-500 active:scale-95"
+                      >
+                        {copied ? <CheckIcon size={12} weight="bold" /> : <CopyIcon size={12} />}
+                        {copied ? "Copied" : "Copy prompt"}
+                      </button>
+                    )}
                   </div>
-                  <pre
-                    role="tabpanel"
-                    className="max-h-72 overflow-auto p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-(--senn-muted)"
-                  >
-                    {text}
-                  </pre>
+
+                  {tab === "prompt" ? (
+                    <pre
+                      role="tabpanel"
+                      className="max-h-72 overflow-auto p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-(--senn-muted)"
+                    >
+                      {text}
+                    </pre>
+                  ) : (
+                    <div role="tabpanel" className="flex flex-col gap-3 p-3">
+                      <CopyCommand command={skillCommand(t.slug)} />
+                      <p className="px-1 text-xs text-pretty text-(--senn-muted)">
+                        Adds <code className="font-mono">{skillPath(t)}</code>. Then tell your agent:{" "}
+                        <span className="text-(--senn-ink)">&ldquo;make this template mine&rdquo;</span>.
+                      </p>
+                      {/* The file itself, for agents without skills or anyone who prefers to paste it. */}
+                      <details className="group rounded-lg border border-(--senn-line)">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-xs font-semibold text-(--senn-muted) hover:text-(--senn-ink)">
+                          View the file
+                          <span aria-hidden className="transition-transform duration-500 group-open:rotate-180">
+                            ▾
+                          </span>
+                        </summary>
+                        <div className="relative border-t border-(--senn-line)">
+                          <button
+                            type="button"
+                            onClick={() => copy(text)}
+                            className="absolute top-2 right-2 flex items-center gap-1.5 rounded-lg bg-(--senn-ink) px-2.5 py-1 text-xs font-semibold text-(--senn-bg) active:scale-95"
+                          >
+                            {copied ? <CheckIcon size={12} weight="bold" /> : <CopyIcon size={12} />}
+                            {copied ? "Copied" : "Copy file"}
+                          </button>
+                          <pre className="max-h-64 overflow-auto p-3 pt-10 font-mono text-xs leading-relaxed whitespace-pre-wrap text-(--senn-muted)">
+                            {text}
+                          </pre>
+                        </div>
+                      </details>
+                    </div>
+                  )}
                 </div>
               </Step>
 
