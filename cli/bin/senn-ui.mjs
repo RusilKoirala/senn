@@ -15,6 +15,7 @@ const DEFAULT_REGISTRY = "https://raw.githubusercontent.com/rusilkoirala/senn/ma
 const REGISTRY = process.env.SENN_REGISTRY || DEFAULT_REGISTRY;
 const SOURCE = process.env.SENN_SOURCE;
 
+// --- colors :D --- (only in a real terminal so logs dont get weird codes)
 const tty = process.stdout.isTTY;
 const c = (code) => (s) => (tty ? `\x1b[${code}m${s}\x1b[0m` : String(s));
 const bold = c(1);
@@ -23,6 +24,7 @@ const green = c(32);
 const yellow = c(33);
 const red = c(31);
 
+// what u see when u dont know what to do
 const HELP = `
 ${bold("senn-ui")} ${dim(`v${VERSION}`)}  Open source landing page templates for Next.js
 
@@ -41,6 +43,7 @@ ${bold("Options")}
 ${dim("https://github.com/rusilkoirala/senn")}
 `;
 
+// tiny args parser (zero deps remember, so no package for this)
 function parseArgs(argv) {
   const args = { _: [], force: false, install: true, dir: undefined, help: false, version: false };
   for (let i = 0; i < argv.length; i++) {
@@ -55,11 +58,13 @@ function parseArgs(argv) {
   return args;
 }
 
+// print the error and LEAVE
 function fail(message) {
   console.error(`${red("✖")} ${message}`);
   process.exit(1);
 }
 
+// read from a url or from disk (disk is for testing a local checkout)
 async function readText(location) {
   if (/^https?:\/\//.test(location)) {
     const res = await fetch(location);
@@ -69,6 +74,7 @@ async function readText(location) {
   return readFileSync(location, "utf8");
 }
 
+// same thing but bytes, cuz images break if u read them as text
 async function readBytes(location) {
   if (/^https?:\/\//.test(location)) {
     const res = await fetch(location);
@@ -78,6 +84,7 @@ async function readBytes(location) {
   return readFileSync(location);
 }
 
+// get the list of all templatess
 async function loadRegistry() {
   try {
     return JSON.parse(await readText(REGISTRY));
@@ -86,6 +93,7 @@ async function loadRegistry() {
   }
 }
 
+// find template by slug, stops u if its wrong or not released yet
 function findTemplate(registry, slug) {
   if (!slug) fail(`Name a template, for example ${bold("npx senn-ui@latest add modern-saas")}. See ${bold("npx senn-ui@latest list")}.`);
   const t = registry.templates.find((x) => x.slug === slug);
@@ -105,6 +113,7 @@ function findProjectRoot() {
   }
 }
 
+// bad or missing json just gives null, no crash
 function readJson(path) {
   try {
     return JSON.parse(readFileSync(path, "utf8"));
@@ -120,6 +129,7 @@ function codeBase(root) {
     : root;
 }
 
+// lockfile tells us first, then who ran the command, and npm if we have no idea
 function packageManager(root) {
   if (existsSync(join(root, "pnpm-lock.yaml"))) return "pnpm";
   if (existsSync(join(root, "yarn.lock"))) return "yarn";
@@ -130,6 +140,7 @@ function packageManager(root) {
   return "npm";
 }
 
+// ask y/n. no real terminal (like CI) = always no, so we dont overwrite by accident
 async function confirm(question) {
   if (!process.stdin.isTTY) return false;
   const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -138,11 +149,13 @@ async function confirm(question) {
   return /^y(es)?$/i.test(answer.trim());
 }
 
+// where a file comes from (local checkout if SENN_SOURCE is set, else github)
 function fileUrl(registry, template, file) {
   const path = `${template.source}/${file}`;
   return SOURCE ? join(SOURCE, path) : `https://raw.githubusercontent.com/${registry.repo}/${registry.branch}/${path}`;
 }
 
+// download everything, 8 files at a time
 async function downloadAll(jobs, limit = 8) {
   let next = 0;
   async function worker() {
@@ -156,6 +169,7 @@ async function downloadAll(jobs, limit = 8) {
   await Promise.all(Array.from({ length: Math.min(limit, jobs.length) }, worker));
 }
 
+// install with whatever package manager the project already uses
 function install(root, deps) {
   if (deps.length === 0) return true;
   const pm = packageManager(root);
@@ -165,10 +179,12 @@ function install(root, deps) {
   return res.status === 0;
 }
 
+// --- add --- (THE MAIN THINGG)
 async function add(args) {
   const registry = await loadRegistry();
   const t = findTemplate(registry, args._[1]);
 
+  // gotta be inside a project first
   const root = findProjectRoot();
   if (!root) fail("Run this inside your Next.js project (no package.json found).");
   const pkg = readJson(join(root, "package.json")) || {};
@@ -177,6 +193,7 @@ async function add(args) {
 
   const base = codeBase(root);
   const target = args.dir ? resolve(process.cwd(), args.dir) : join(base, "templates", t.slug);
+  // dont eat someones code without asking
   if (existsSync(target) && !args.force) {
     const ok = await confirm(`${relative(root, target)} already exists. Overwrite it?`);
     if (!ok) fail("Stopped. Nothing was changed. Use --force to overwrite.");
@@ -202,6 +219,7 @@ async function add(args) {
     console.log(`${green("✓")} Created ${relative(root, path)}`);
   }
 
+  // just a warning, we dont touch ur tsconfig
   const tsconfig = existsSync(join(root, "tsconfig.json")) ? readFileSync(join(root, "tsconfig.json"), "utf8") : "";
   if (!tsconfig.includes('"@/*"')) {
     console.log(`${yellow("!")} The template imports with the ${bold("@/")} alias. Add "paths": { "@/*": ["./src/*"] } to tsconfig.json.`);
@@ -216,6 +234,7 @@ async function add(args) {
     console.log(`${dim("›")} Skipped installing: ${missing.join(" ")}`);
   }
 
+  // all done, now show how to use it
   const importPath = `@/${relative(base, target).split("\\").join("/")}/page`;
   console.log(`
 ${green("Done.")} Render it on a route, for example app/page.tsx:
@@ -230,6 +249,7 @@ Make it yours: edit ${bold(relative(root, join(target, "content.ts")))}, or let 
 `);
 }
 
+// --- skill --- (puts the agent instructions in the project)
 async function skill(args) {
   const registry = await loadRegistry();
   const t = findTemplate(registry, args._[1]);
@@ -248,6 +268,7 @@ Ask your coding agent to "make the ${t.name} template mine". It will ask about y
 product, then rewrite the copy, colors and images.`);
 }
 
+// --- list --- (whats available)
 async function list() {
   const registry = await loadRegistry();
   console.log("");
@@ -258,6 +279,7 @@ async function list() {
   console.log(`\n  ${dim("npx senn-ui@latest add <template>")}\n`);
 }
 
+// --- it starts here ---
 const args = parseArgs(process.argv.slice(2));
 const command = args._[0];
 

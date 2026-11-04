@@ -2,6 +2,7 @@
 import type { TemplateMeta } from "@/templates/catalog";
 import { repo } from "./content";
 
+// google pls read this
 export const site = {
   name: "Senn",
   url: "https://sennui.tech",
@@ -21,6 +22,7 @@ export const site = {
   ],
 };
 
+// small helpers for the title and url of a template page
 export const templateTitle = (t: TemplateMeta) => `${t.name} landing page template`;
 
 export const templateUrl = (t: TemplateMeta) => `${site.url}/templates/${t.slug}`;

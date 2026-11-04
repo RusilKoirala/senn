@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 export function CopyCommand({ command, className, kind = "command" }: { command: string; className?: string; kind?: "command" | "code" }) {
   const [copied, setCopied] = useState(false);
 
+  // copy it, show the check, go back after a bit
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(command);

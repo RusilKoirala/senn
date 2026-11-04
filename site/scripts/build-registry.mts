@@ -19,6 +19,7 @@ const pin = (name: string) => (versions[name] ? `${name}@${versions[name]}` : na
 // Template files that stay in this repository instead of being installed.
 const SKIP = new Set(["README.md", ".DS_Store"]);
 
+// every file in a template folder (goes inside the folders too)
 function listFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     if (SKIP.has(name)) return [];
@@ -42,7 +43,9 @@ function importedPackages(files: string[]) {
   return [...found].sort();
 }
 
+// --- make an entry for each template ---
 const templates = catalog.map((t) => {
+  // soon templates only get a name, no files yet
   if (t.status !== "live") {
     return { slug: t.slug, name: t.name, status: t.status, description: t.description };
   }
@@ -50,6 +53,7 @@ const templates = catalog.map((t) => {
   const paths = listFiles(dir);
   const imported = importedPackages(paths);
   const listed = [...(t.dependencies ?? [])].sort();
+  // catalog and imports dont match = BUILD FAILS. no sneaky deps
   if (imported.join() !== listed.join()) {
     throw new Error(
       `${t.slug}: catalog.ts dependencies [${listed}] don't match the template's imports [${imported}]. Update catalog.ts.`,
@@ -83,5 +87,6 @@ const registry = {
   templates,
 };
 
+// write it (ci checks this matches the committed one)
 writeFileSync(join(repoRoot, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
 console.log(`registry.json: ${templates.filter((t) => t.status === "live").length} live, ${templates.length} total`);

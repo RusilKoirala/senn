@@ -15,6 +15,7 @@ const scratch = mkdtempSync(join(tmpdir(), "senn-registry-"));
 const env = { ...process.env, SENN_REGISTRY: registryPath, SENN_SOURCE: root };
 const digest = path => createHash("sha256").update(readFileSync(path)).digest("hex");
 
+// run the real cli and yell if the exit code is wrong
 function run(cwd, args, status = 0) {
   const result = spawnSync(process.execPath, [cli, ...args], { cwd, env, encoding: "utf8" });
   assert.equal(result.status, status, `${args.join(" ")}\n${result.stdout}\n${result.stderr}`);
@@ -22,18 +23,22 @@ function run(cwd, args, status = 0) {
 }
 
 try {
+  // some condition so registry dont be naughty
   const live = registry.templates.filter(t => t.status === "live");
   assert.equal(new Set(registry.templates.map(t => t.slug)).size, registry.templates.length, "Duplicate template slug");
   const listing = run(scratch, ["list"]);
+  // these templates are gone and they better STAY gone
   for (const retired of ["creative-agency", "ai-startup", "product-launch"]) {
     assert(!registry.templates.some(t => t.slug === retired), `Retired template ${retired} is still registered`);
   }
 
+  // now check every live template one by one
   for (const template of live) {
     assert(listing.includes(template.slug), `${template.slug} is absent from CLI list`);
     assert(existsSync(join(root, "site/src/senn/previews", `${template.slug}.jpg`)), `Missing preview for ${template.slug}`);
     for (const required of ["page.tsx", "content.ts", "theme.css"]) assert(template.files.includes(required));
 
+    // license files must ship with the template, not optional
     if (template.slug === "minimal-portfolio") {
       assert(template.files.includes("LICENSE"), "Margin license missing");
       assert(template.files.includes("assets/tech/LICENSE"), "Icon license missing");
@@ -51,6 +56,7 @@ try {
       assert(template.files.includes("lib/spec.ts"), "Specification logic missing");
     }
 
+    // next projects can have src/ or no src/ so test bothh
     for (const layout of ["src", "root"]) {
       const fixture = join(scratch, `${template.slug}-${layout}`);
       const base = layout === "src" ? join(fixture, "src") : fixture;
@@ -59,6 +65,7 @@ try {
       writeFileSync(join(fixture, "tsconfig.json"), JSON.stringify({ compilerOptions: { paths: { "@/*": [layout === "src" ? "./src/*" : "./*"] } } }));
       run(fixture, ["add", template.slug, "--no-install"]);
       const target = join(base, "templates", template.slug);
+      // installed file has to be exactly the same as the repo one (hash check)
       for (const file of template.files) {
         assert.equal(digest(join(target, file)), digest(join(root, template.source, file)), `${template.slug}/${file} was altered during install`);
       }
@@ -66,8 +73,10 @@ try {
       run(fixture, ["skill", template.slug]);
       assert.equal(readFileSync(join(fixture, ".claude/skills", `senn-${template.slug}`, "SKILL.md"), "utf8"), template.skill);
       if (template.slug.endsWith("portfolio")) assert(template.skill.includes("real projects with URLs and outcomes"), "Portfolio skill asks for the wrong content");
+      // pretend the project already has its own helper, we must not touch it
       const existingHelper = "// Preserve the host project's helper\n";
       writeFileSync(join(base, "lib/utils.ts"), existingHelper);
+      // no --force = stops with an error, --force = overwrites
       run(fixture, ["add", template.slug, "--no-install"], 1);
       run(fixture, ["add", template.slug, "--no-install", "--force"]);
       assert.equal(readFileSync(join(base, "lib/utils.ts"), "utf8"), existingHelper, "Host helper was overwritten");
@@ -76,5 +85,6 @@ try {
   }
   console.log(`Registry verified: ${live.length} live templates, both project layouts.`);
 } finally {
+  // clean the messs
   rmSync(scratch, { recursive: true, force: true });
 }

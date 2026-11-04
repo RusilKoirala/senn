@@ -24,6 +24,7 @@ export default function TemplateViewerPage({ params }: PageProps<"/templates/[sl
   );
 }
 
+// only live templates get a preview, else 404
 async function Viewer({ params }: { params: Params }) {
   const { slug } = await params;
   const t = getMeta(slug);

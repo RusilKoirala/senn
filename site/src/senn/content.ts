@@ -12,6 +12,7 @@ export const addCommand = (slug: string) => `npx senn-ui@latest add ${slug}`;
 // Downloads the template's agent skill into .claude/skills/senn-<slug>/SKILL.md.
 export const skillCommand = (slug: string) => `npx senn-ui@latest skill ${slug}`;
 
+// open source block on the homepage (PLS STAR)
 export const openSource = {
   title: "Open source",
   body: "Free landing page templates. MIT licensed.",

@@ -4,10 +4,12 @@ import { getTemplate, templates } from "@/templates";
 
 type Params = PageProps<"/t/[slug]">["params"];
 
+// make every template page at build time
 export function generateStaticParams() {
   return templates.map((t) => ({ slug: t.slug }));
 }
 
+// title and stuff, canonical points to /templates/ so google dont see 2 pages
 export async function generateMetadata({ params }: PageProps<"/t/[slug]">) {
   const { slug } = await params;
   const template = getTemplate(slug);
@@ -25,6 +27,7 @@ export default function TemplatePreviewPage({ params }: PageProps<"/t/[slug]">) 
   );
 }
 
+// wrong slug = 404, else show the real template
 async function TemplatePreview({ params }: { params: Params }) {
   const { slug } = await params;
   const template = getTemplate(slug);

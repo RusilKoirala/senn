@@ -4,12 +4,14 @@ import type { TemplateMeta } from "@/templates/catalog";
 // Codex…) to turn a template into their own product's page. Built from the catalog
 // so every template gets a tailored version.
 
+// the steps every template shares
 function steps(t: TemplateMeta) {
   const dir = `src/templates/${t.slug}`;
   const brand = t.brandClass ?? "brand";
   const notes = (t.agentNotes ?? []).map((n) => `- ${n}`).join("\n");
   const portfolio = t.kind === "portfolio";
   const event = t.kind === "event";
+  // what the agent asks u first (portfolio, event and product all need diff things)
   const intake = portfolio
     ? "name, role, location and time zone, email and booking link, real projects with URLs and outcomes, work history, tech stack, GitHub activity source, availability, and preferred colors. Never invent employment, awards, project results or contribution counts."
     : event
@@ -38,12 +40,14 @@ Notes for this template:
 ${notes}`;
 }
 
+// the version u copy and paste
 export function agentPrompt(t: TemplateMeta) {
   return `I'm using the "${t.name}" template from Senn (MIT; bundled third party components retain their own licenses). ${t.kind === "portfolio" ? "Make it my own portfolio, using my real work and personal information." : t.kind === "event" ? "Make it the landing page for my own event, using verified programme and venue information." : "Turn it into the landing page for my own product."}
 
 ${steps(t)}`;
 }
 
+// same steps but as a skill file (this is what the cli downloads)
 export function agentSkill(t: TemplateMeta) {
   return `---
 name: senn-${t.slug}
@@ -56,4 +60,5 @@ ${steps(t)}
 `;
 }
 
+// where that skill file goes
 export const skillPath = (t: TemplateMeta) => `.claude/skills/senn-${t.slug}/SKILL.md`;

@@ -5,6 +5,7 @@ import MinimalPortfolio from "./minimal-portfolio/page";
 import ModernSaas from "./modern-saas/page";
 import ProductDesign from "./product-design/page";
 
+// what a template needs to show up on its /t/ page
 export type SennTemplate = {
   slug: string;
   name: string;
@@ -37,6 +38,7 @@ export const templates: SennTemplate[] = [
   },
 ];
 
+// find template by slug (EZ)
 export function getTemplate(slug: string) {
   return templates.find((t) => t.slug === slug);
 }

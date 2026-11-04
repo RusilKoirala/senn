@@ -18,6 +18,7 @@ export type TemplateMeta = {
   agentNotes?: string[];
 };
 
+// --- ALL the templates --- (new one? add it here)
 export const catalog: TemplateMeta[] = [
   {
     slug: "modern-saas",
@@ -122,8 +123,10 @@ export const catalog: TemplateMeta[] = [
   },
 ];
 
+// only the released ones
 export const liveTemplates = catalog.filter((t) => t.status === "live");
 
+// find details by slug
 export function getMeta(slug: string) {
   return catalog.find((t) => t.slug === slug);
 }

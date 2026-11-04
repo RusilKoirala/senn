@@ -13,6 +13,7 @@ import { previews } from "./previews";
 
 type AgentTab = "prompt" | "skill";
 
+// copy button logic, the check stays for a bit then goes back
 function useCopy() {
   const [copied, setCopied] = useState(false);
   const copy = async (text: string) => {
@@ -27,6 +28,7 @@ function useCopy() {
   return { copied, copy };
 }
 
+// one numbered step
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
     <li className="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-4">
@@ -41,6 +43,7 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
   );
 }
 
+// --- template detail page ---
 export function TemplateDetail({ template: t }: { template: TemplateMeta }) {
   const [tab, setTab] = useState<AgentTab>("prompt");
   const { copied, copy } = useCopy();

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { catalog } from "@/templates/catalog";
 import { previews } from "../previews";
 
+// same box for the real tiles and the soon ones
 const TILE = "block overflow-hidden rounded-2xl border border-(--senn-line) bg-(--senn-surface)";
 
 export function Gallery() {
@@ -10,6 +11,7 @@ export function Gallery() {
     <section aria-label="Templates" className="px-4 py-10 md:py-16">
       <ul className="mx-auto grid max-w-6xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {catalog.map((t, i) => {
+          // no preview = no link, it just says Soon
           const preview = previews[t.slug];
           const live = t.status === "live" && preview;
           return (
