@@ -79,6 +79,10 @@ THE SENNERSS who helped us are below
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+## AI USAGE
+
+I used ai to create landing but to note. I instructed claude for each design steps where to put image to where to put text! This project is to make best ui and I excelled at that making very cool design using ai rather than slop. My motive was to show good ui using prompt and design skills
+
 ## License
 
 [MIT](LICENSE) yes SEN is MIT lisence so use it freely as you like
